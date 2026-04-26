@@ -113,7 +113,7 @@ export default function HomeForm() {
               id="name"
               type="text"
               className="input-field w-full px-4 py-3 rounded-xl text-base"
-              placeholder="e.g. Raveena, Priya, Alex..."
+              placeholder="e.g. Khushi, Priya, Saurabh..."
               value={form.name}
               onChange={(e) => {
                 setForm({ ...form, name: e.target.value });

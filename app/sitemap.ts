@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://birthdayqrsurprise.com';
+  const baseUrl = 'https://birthday-qr.vercel.app';
   
   return [
     {
