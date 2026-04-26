@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     'digital birthday card',
   ],
   verification: {
-    google: 'google0943dc92510d531f.html',
+    google: '0943dc92510d531f',
   },
   authors: [{ name: 'Birthday QR Surprise' }],
   creator: 'Birthday QR Surprise',
