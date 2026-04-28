@@ -72,7 +72,7 @@ export function getAllSlugs(): string[] {
   }
 
   // Deduplicate
-  return [...new Set(slugs)];
+  return Array.from(new Set(slugs));
 }
 
 // ─── Helpers ──────────────────────────────────────────────────
