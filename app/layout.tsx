@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
+import { Analytics } from '@vercel/analytics/next'; // ← added
 
 export const viewport: Viewport = {
   themeColor: '#030014',
@@ -98,6 +99,7 @@ export default function RootLayout({
       <body>
         <ServiceWorkerRegistration />
         {children}
+        <Analytics />
       </body>
     </html>
   );
