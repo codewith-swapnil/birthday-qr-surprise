@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [],
-    unoptimized: true,
+    remotePatterns: [
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
+    ],
+    formats: ['image/avif', 'image/webp'],
   },
   async headers() {
     return [

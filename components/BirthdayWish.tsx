@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { WishData, getOrdinal } from '@/lib/utils';
+import dynamic from 'next/dynamic';
+const ImageSlider = dynamic(() => import('@/components/ImageSlider'), { ssr: false });
+
 
 interface BirthdayWishProps {
   rawData: WishData | null;
@@ -69,6 +72,9 @@ export default function BirthdayWish({ rawData, slug }: BirthdayWishProps) {
   const [slideIdx, setSlideIdx]   = useState(0);
   const [langIdx, setLangIdx]     = useState(0);
   const [langKey, setLangKey]     = useState(0);
+
+  // Image slider fallback (if all Cloudinary images fail)
+  const [useEmojiSlider, setUseEmojiSlider] = useState(false);
 
   // Share
   const [copied, setCopied]       = useState(false);
@@ -487,43 +493,55 @@ export default function BirthdayWish({ rawData, slug }: BirthdayWishProps) {
             </div>
           </div>
 
-          {/* ── HERO: IMAGE SLIDER + NAME ── */}
+          {/* ── HERO: REAL PHOTOS or EMOJI FALLBACK ── */}
           <section style={{ textAlign:'center', marginBottom:'3rem' }}>
 
-            {/* Slide card */}
-            <div style={{
-              position:'relative', width:170, height:170,
-              margin:'0 auto 2.5rem',
-              borderRadius:'50%',
-              background:slide.bg,
-              display:'flex', alignItems:'center', justifyContent:'center',
-              fontSize:'5.5rem',
-              boxShadow:`0 0 60px ${slide.glow},0 0 120px ${slide.glow}`,
-              transition:'background .8s ease, box-shadow .8s ease',
-              animation:'slideIn .5s ease-out, surpriseGlow 4s ease-in-out infinite',
-            }}>
-              <span key={slideIdx} style={{ animation:'slideIn .4s ease-out' }}>{slide.emoji}</span>
+            {/* ── Real photo slider (when Cloudinary images exist) ── */}
+            {rawData.images && rawData.images.length > 0 && !useEmojiSlider && (
+              <div style={{ marginBottom:'2rem', borderRadius:'1.5rem', overflow:'hidden', boxShadow:'0 0 60px rgba(251,191,36,.15), 0 30px 60px rgba(0,0,0,.5)' }}>
+                <ImageSlider
+                  images={rawData.images}
+                  name={name}
+                  onAllFailed={() => setUseEmojiSlider(true)}
+                />
+              </div>
+            )}
 
-              {/* Pulse rings */}
-              {[1,2,3].map(i => (
-                <div key={i} style={{
-                  position:'absolute', inset:-(i*20), borderRadius:'50%',
-                  border:'1px solid rgba(251,191,36,.12)',
-                  animation:`heartBeat ${2.5+i*.5}s ease-in-out ${i*.35}s infinite`,
-                }}/>
-              ))}
-            </div>
+            {/* ── Emoji slider fallback ── */}
+            {(!rawData.images || rawData.images.length === 0 || useEmojiSlider) && (
+              <>
+                <div style={{
+                  position:'relative', width:170, height:170,
+                  margin:'0 auto 2.5rem',
+                  borderRadius:'50%',
+                  background:slide.bg,
+                  display:'flex', alignItems:'center', justifyContent:'center',
+                  fontSize:'5.5rem',
+                  boxShadow:`0 0 60px ${slide.glow},0 0 120px ${slide.glow}`,
+                  transition:'background .8s ease, box-shadow .8s ease',
+                  animation:'slideIn .5s ease-out, surpriseGlow 4s ease-in-out infinite',
+                }}>
+                  <span key={slideIdx} style={{ animation:'slideIn .4s ease-out' }}>{slide.emoji}</span>
+                  {[1,2,3].map(i => (
+                    <div key={i} style={{
+                      position:'absolute', inset:-(i*20), borderRadius:'50%',
+                      border:'1px solid rgba(251,191,36,.12)',
+                      animation:`heartBeat ${2.5+i*.5}s ease-in-out ${i*.35}s infinite`,
+                    }}/>
+                  ))}
+                </div>
 
-            {/* Slide dots */}
-            <div style={{ display:'flex', justifyContent:'center', gap:6, marginBottom:'2.5rem' }}>
-              {SLIDES.map((_,i) => (
-                <button key={i} onClick={() => setSlideIdx(i)} style={{
-                  width:i===slideIdx?26:8, height:8, borderRadius:4,
-                  background:i===slideIdx?'#fbbf24':'rgba(255,255,255,.2)',
-                  border:'none', cursor:'pointer', transition:'all .3s ease', padding:0,
-                }}/>
-              ))}
-            </div>
+                <div style={{ display:'flex', justifyContent:'center', gap:6, marginBottom:'2.5rem' }}>
+                  {SLIDES.map((_,i) => (
+                    <button key={i} onClick={() => setSlideIdx(i)} style={{
+                      width:i===slideIdx?26:8, height:8, borderRadius:4,
+                      background:i===slideIdx?'#fbbf24':'rgba(255,255,255,.2)',
+                      border:'none', cursor:'pointer', transition:'all .3s ease', padding:0,
+                    }}/>
+                  ))}
+                </div>
+              </>
+            )}
 
             {/* Label */}
             <p style={{

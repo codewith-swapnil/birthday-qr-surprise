@@ -3,7 +3,7 @@ export interface WishData {
   age: string;
   message: string;
   createdAt: string;
-  emoji?: string;
+  images?: string[];   // Cloudinary URLs — optional
 }
 
 export function generateSlug(name: string, age: string): string {
@@ -19,10 +19,18 @@ export function generateSlug(name: string, age: string): string {
 export function encodeWishData(data: WishData): string {
   try {
     const json = JSON.stringify(data);
-    if (typeof window !== 'undefined' && window.btoa) {
-      return window.btoa(encodeURIComponent(json));
+    let base64: string;
+
+    if (typeof window === 'undefined') {
+      base64 = Buffer.from(json, 'utf-8').toString('base64');
+    } else {
+      base64 = btoa(
+        encodeURIComponent(json).replace(/%([0-9A-F]{2})/g, (_, hex) =>
+          String.fromCharCode(parseInt(hex, 16))
+        )
+      );
     }
-    return Buffer.from(json).toString('base64');
+    return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
   } catch {
     return '';
   }
@@ -30,11 +38,19 @@ export function encodeWishData(data: WishData): string {
 
 export function decodeWishData(encoded: string): WishData | null {
   try {
+    const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
+
     let json: string;
-    if (typeof window !== 'undefined' && window.atob) {
-      json = decodeURIComponent(window.atob(encoded));
+    if (typeof window === 'undefined') {
+      json = Buffer.from(padded, 'base64').toString('utf-8');
     } else {
-      json = decodeURIComponent(Buffer.from(encoded, 'base64').toString('utf-8'));
+      json = decodeURIComponent(
+        atob(padded)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
     }
     return JSON.parse(json) as WishData;
   } catch {
