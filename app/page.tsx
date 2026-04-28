@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import HomeForm from '@/components/HomeForm';
+import { FEATURED_SLUGS, generateBlogContent } from '@/lib/blogData';
 
 const StarField = dynamic(() => import('@/components/StarField'), { ssr: false });
 
@@ -11,6 +13,12 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  // Get featured posts data
+  const featuredPosts = FEATURED_SLUGS.slice(0, 6).map((slug) => ({
+    slug,
+    ...generateBlogContent(slug),
+  }));
+
   return (
     <main
       style={{
@@ -196,6 +204,107 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* 🌟 NEW: Featured Blog Section 🎉 */}
+        <section className="max-w-6xl mx-auto mt-16">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+            <h2
+              className="text-2xl md:text-3xl font-bold text-center md:text-left"
+              style={{ fontFamily: 'var(--font-display)', color: '#fde68a' }}
+            >
+              📖 Birthday QR Blog: Ideas & Guides
+            </h2>
+            <Link
+              href="/blog"
+              className="text-sm px-4 py-2 rounded-full transition-all mt-3 md:mt-0"
+              style={{
+                background: 'rgba(251,191,36,0.1)',
+                border: '1px solid rgba(251,191,36,0.3)',
+                color: '#fbbf24',
+              }}
+            >
+              View all articles →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {featuredPosts.map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
+                <article
+                  className="h-full rounded-2xl p-5 transition-all duration-300 group-hover:scale-[1.02]"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(139,92,246,0.08), rgba(251,191,36,0.04))',
+                    border: '1px solid rgba(251,191,36,0.15)',
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-3xl">{post.emoji}</span>
+                    <span
+                      className="text-xs px-2 py-0.5 rounded-full"
+                      style={{
+                        background: 'rgba(255,255,255,0.05)',
+                        color: 'rgba(248,244,255,0.4)',
+                      }}
+                    >
+                      {post.readingTime}
+                    </span>
+                  </div>
+                  <h3
+                    className="font-bold text-sm md:text-base leading-snug mb-2 group-hover:text-yellow-300 transition-colors"
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      color: '#f8f4ff',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {post.title}
+                  </h3>
+                  <p
+                    className="text-xs leading-relaxed"
+                    style={{
+                      color: 'rgba(248,244,255,0.5)',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {post.description}
+                  </p>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-xs" style={{ color: 'rgba(248,244,255,0.25)' }}>
+                      {post.publishDate}
+                    </span>
+                    <span
+                      className="text-xs font-semibold"
+                      style={{ color: '#fbbf24' }}
+                    >
+                      Read Article →
+                    </span>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
+
+          {/* Subtle CTA to blog */}
+          <div className="text-center mt-8">
+            <Link
+              href="/blog"
+              className="inline-block text-sm px-5 py-2 rounded-full"
+              style={{
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: 'rgba(248,244,255,0.6)',
+              }}
+            >
+              🎂 Explore all birthday surprise ideas (400+ articles)
+            </Link>
+          </div>
+        </section>
+
         {/* Features Section */}
         <section className="max-w-4xl mx-auto mt-14">
           <h2
@@ -234,16 +343,35 @@ export default function HomePage() {
           <p className="text-xs" style={{ color: 'rgba(248,244,255,0.2)' }}>
             © {new Date().getFullYear()} Birthday QR Surprise · Made with ❤️ · Free Birthday Wish Generator
           </p>
-          <div className="flex justify-center gap-4 mt-3">
-            {['Privacy Policy', 'Terms', 'Contact'].map((link) => (
-              <span
-                key={link}
-                className="text-xs cursor-pointer hover:opacity-60 transition-opacity"
-                style={{ color: 'rgba(248,244,255,0.3)' }}
-              >
-                {link}
-              </span>
-            ))}
+          <div className="flex flex-wrap justify-center gap-4 mt-3">
+            <Link
+              href="/privacy"
+              className="text-xs hover:text-yellow-400 transition-colors"
+              style={{ color: 'rgba(248,244,255,0.4)' }}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-xs hover:text-yellow-400 transition-colors"
+              style={{ color: 'rgba(248,244,255,0.4)' }}
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/contact"
+              className="text-xs hover:text-yellow-400 transition-colors"
+              style={{ color: 'rgba(248,244,255,0.4)' }}
+            >
+              Contact
+            </Link>
+            <Link
+              href="/about"
+              className="text-xs hover:text-yellow-400 transition-colors"
+              style={{ color: 'rgba(248,244,255,0.4)' }}
+            >
+              About Us
+            </Link>
           </div>
         </footer>
       </div>
