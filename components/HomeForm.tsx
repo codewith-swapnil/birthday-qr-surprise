@@ -181,7 +181,7 @@ export default function HomeForm() {
             <input
               id="name" type="text"
               className="input-field w-full px-4 py-3 rounded-xl text-base"
-              placeholder="e.g. Raveena, Priya, Alex…"
+              placeholder="e.g. Sophia, Priya, Alex…"
               value={form.name} maxLength={50}
               onChange={e => { setForm({...form, name:e.target.value}); setErrors({...errors, name:undefined}); }}
             />
