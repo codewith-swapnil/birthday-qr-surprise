@@ -19,12 +19,12 @@ export const metadata: Metadata = {
     'shareable birthday link',
   ],
   alternates: {
-    canonical: 'https://birthday-qr.vercel.app',
+    canonical: 'https://wishqr.in',
   },
   openGraph: {
     title: 'Birthday QR Surprise – Free Magical Birthday Wish Generator',
     description: 'Generate a stunning birthday page with confetti, balloons, and a QR code. Share the love in seconds!',
-    url: 'https://birthday-qr.vercel.app',
+    url: 'https://wishqr.in',
     siteName: 'Birthday QR Surprise',
     images: [
       {

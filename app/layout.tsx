@@ -11,7 +11,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://birthday-qr.vercel.app'),
+  metadataBase: new URL('https://wishqr.in'),
   title: 'Birthday QR Surprise 🎉 - Create Personalized Birthday Wishes',
   description:
     'Create a beautiful, personalized birthday surprise with a QR code! Share a magical birthday wish page with animations, confetti, and heartfelt messages. Free birthday wish generator.',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://birthday-qr.vercel.app',
+    url: 'https://wishqr.in',
     siteName: 'Birthday QR Surprise',
     title: 'Birthday QR Surprise 🎉 - Create Personalized Birthday Wishes',
     description:
@@ -83,7 +83,7 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'WebApplication',
               name: 'Birthday QR Surprise',
-              url: 'https://birthday-qr.vercel.app',
+              url: 'https://wishqr.in',
               description: 'Create personalized birthday wish pages with QR codes',
               applicationCategory: 'EntertainmentApplication',
               operatingSystem: 'Any',

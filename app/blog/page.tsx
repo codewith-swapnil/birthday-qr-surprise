@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Explore birthday QR code ideas for girlfriend, boyfriend, mom, dad, friends & more. Step-by-step guides, message templates & creative surprises. 100% free.',
   alternates: {
-    canonical: 'https://birthday-qr.vercel.app/blog',
+    canonical: 'https://wishqr.in/blog',
   },
 };
 

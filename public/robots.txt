@@ -11,4 +11,4 @@ User-agent: Bingbot
 Allow: /
 
 # Sitemap location
-Sitemap: https://birthday-qr.vercel.app/sitemap.xml
+Sitemap: https://wishqr.in/sitemap.xml

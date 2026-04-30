@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllSlugs } from '@/lib/blogData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://birthday-qr.vercel.app';
+  const baseUrl = 'https://wishqr.in';
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [

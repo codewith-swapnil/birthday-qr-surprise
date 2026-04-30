@@ -20,7 +20,7 @@ export async function generateMetadata({
   if (!slugs.includes(params.slug)) return {};
 
   const content = generateBlogContent(params.slug);
-  const url = `https://birthday-qr.vercel.app/blog/${params.slug}`;
+  const url = `https://wishqr.in/blog/${params.slug}`;
 
   return {
     title: content.title,
@@ -48,7 +48,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   if (!slugs.includes(params.slug)) notFound();
 
   const content = generateBlogContent(params.slug);
-  const url = `https://birthday-qr.vercel.app/blog/${params.slug}`;
+  const url = `https://wishqr.in/blog/${params.slug}`;
 
   // Article Schema (JSON-LD)
   const schema = {
@@ -62,7 +62,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     publisher: {
       '@type': 'Organization',
       name: 'Birthday QR Surprise',
-      url: 'https://birthday-qr.vercel.app',
+      url: 'https://wishqr.in',
     },
     mainEntityOfPage: url,
   };
