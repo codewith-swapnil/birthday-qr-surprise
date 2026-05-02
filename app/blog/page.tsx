@@ -21,17 +21,36 @@ const CATEGORIES = [
   { label: '😂 Funny', slug: 'funny' },
 ];
 
-export default function BlogPage() {
-  const featuredPosts = FEATURED_SLUGS.map((slug) => ({
+const POSTS_PER_PAGE = 20;
+
+interface BlogPageProps {
+  searchParams?: Promise<{ page?: string }> | { page?: string };
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
+  // ✅ Await searchParams (Next.js 15+)
+  const resolvedParams = await searchParams;
+  const currentPage = Number(resolvedParams?.page) || 1;
+
+  const allSlugs = getAllSlugs();
+  const totalPosts = allSlugs.length;
+
+  // Featured posts (first 12 from FEATURED_SLUGS)
+  const featuredPosts = FEATURED_SLUGS.slice(0, 12).map((slug) => ({
     slug,
     ...generateBlogContent(slug),
   }));
 
-  const allSlugs = getAllSlugs();
-  const moreSlugs = allSlugs
-    .filter((s) => !FEATURED_SLUGS.includes(s))
-    .slice(0, 24);
-  const morePosts = moreSlugs.map((slug) => ({
+  // All non‑featured slugs
+  const otherSlugs = allSlugs.filter((s) => !FEATURED_SLUGS.includes(s));
+  const totalPages = Math.ceil(otherSlugs.length / POSTS_PER_PAGE);
+
+  // Paginate
+  const paginatedSlugs = otherSlugs.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  );
+  const paginatedPosts = paginatedSlugs.map((slug) => ({
     slug,
     ...generateBlogContent(slug),
   }));
@@ -69,7 +88,7 @@ export default function BlogPage() {
             unforgettable with a personalised QR surprise.
           </p>
           <p className="mt-2 text-sm" style={{ color: 'rgba(248,244,255,0.3)' }}>
-            {getAllSlugs().length}+ articles and growing
+            {totalPosts}+ articles and growing
           </p>
         </div>
 
@@ -91,10 +110,7 @@ export default function BlogPage() {
         </div>
 
         {/* Ad slot */}
-        <div
-          className="ad-slot h-16 rounded-xl mb-10"
-          aria-label="Advertisement"
-        >
+        <div className="ad-slot h-16 rounded-xl mb-10" aria-label="Advertisement">
           <span>Advertisement</span>
         </div>
 
@@ -111,18 +127,43 @@ export default function BlogPage() {
           ))}
         </div>
 
-        {/* All Posts */}
+        {/* All Posts with Pagination */}
         <h2
           className="text-2xl font-bold mb-6"
           style={{ fontFamily: 'var(--font-display)', color: '#fde68a' }}
         >
-          📚 More Articles
+          📚 All Articles ({totalPosts})
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {morePosts.map((post) => (
+          {paginatedPosts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}
         </div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-10">
+            {currentPage > 1 && (
+              <Link
+                href={`/blog?page=${currentPage - 1}`}
+                className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-sm text-gray-300 hover:text-yellow-400 transition-colors"
+              >
+                ← Previous
+              </Link>
+            )}
+            <span className="px-3 py-1 text-sm text-gray-400">
+              Page {currentPage} of {totalPages}
+            </span>
+            {currentPage < totalPages && (
+              <Link
+                href={`/blog?page=${currentPage + 1}`}
+                className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-sm text-gray-300 hover:text-yellow-400 transition-colors"
+              >
+                Next →
+              </Link>
+            )}
+          </div>
+        )}
 
         {/* CTA */}
         <div
@@ -226,10 +267,7 @@ function BlogCard({
           <span className="text-xs" style={{ color: 'rgba(248,244,255,0.25)' }}>
             {post.publishDate}
           </span>
-          <span
-            className="text-xs font-semibold"
-            style={{ color: '#fbbf24' }}
-          >
+          <span className="text-xs font-semibold" style={{ color: '#fbbf24' }}>
             Read →
           </span>
         </div>

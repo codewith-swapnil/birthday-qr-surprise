@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   description:
     'Create a beautiful, personalized birthday surprise with a QR code! Share a magical birthday wish page with animations, confetti, and heartfelt messages. Free birthday wish generator.',
   keywords: [
+    'birthday wishes qr code free',
+    'birthday wishes qr code free with name',
+    'happy birthday qr code generator free',
+    'birthday wishes qr code free with name age and message',
+    'birthday wishes qr',
     'birthday wish generator',
     'birthday QR code',
     'personalized birthday message',

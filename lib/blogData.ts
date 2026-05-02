@@ -1,77 +1,92 @@
 // ─────────────────────────────────────────────────────────────
 //  Programmatic SEO: Blog Data Engine
-//  Generates 1000+ unique slugs + rich page content
+//  Generates 600+ unique slugs + rich page content
 // ─────────────────────────────────────────────────────────────
 
 export const relations = [
   'girlfriend', 'boyfriend', 'wife', 'husband',
   'best-friend', 'brother', 'sister', 'mom', 'dad',
   'crush', 'colleague', 'teacher', 'friend',
+  'fiance', 'fiancee', 'nephew', 'niece', 'grandma', 'grandpa',
+  'son', 'daughter', 'aunt', 'uncle', 'cousin', 'boss', 'mentor', 'student'
 ];
 
 export const modifiers = [
   'romantic', 'funny', 'emotional', 'creative', 'unique',
   'sweet', 'heartfelt', 'surprise', 'special', 'cute',
+  'inspiring', 'touching', 'simple', 'short', 'poetic',
+  'classic', 'modern', 'vintage', 'epic', 'awesome'
 ];
 
-export const languages = ['english', 'hindi', 'marathi'];
+export const languages = [
+  'english', 'hindi', 'marathi',
+  'spanish', 'french', 'german', 'tamil', 'telugu',
+  'kannada', 'gujarati', 'bengali', 'punjabi'
+];
 
 export const occasions = [
   '18th', '21st', '25th', '30th', '40th', '50th', 'milestone',
+  '1st', '5th', '10th', '16th', '60th', '70th', '80th', '90th', '100th'
 ];
 
-export const years = ['2025', '2026'];
+export const years = ['2025', '2026', '2027', '2028', '2029', '2030'];
 
 // ─── Slug generators ─────────────────────────────────────────
-
-function slugifyRelation(r: string) {
-  return r; // already hyphenated
-}
 
 export function getAllSlugs(): string[] {
   const slugs: string[] = [];
 
-  // Type A: {modifier}-birthday-qr-for-{relation}  (130 pages)
+  // Type A: modifier-birthday-qr-for-relation
   for (const m of modifiers) {
     for (const r of relations) {
       slugs.push(`${m}-birthday-qr-for-${r}`);
     }
   }
 
-  // Type B: birthday-qr-for-{relation}-in-{language}  (39 pages)
+  // Type B: birthday-qr-for-relation-in-language
   for (const r of relations) {
     for (const lang of languages) {
       slugs.push(`birthday-qr-for-${r}-in-${lang}`);
     }
   }
 
-  // Type C: {occasion}-birthday-qr-for-{relation}  (91 pages)
+  // Type C: occasion-birthday-qr-for-relation
   for (const occ of occasions) {
     for (const r of relations) {
       slugs.push(`${occ}-birthday-qr-for-${r}`);
     }
   }
 
-  // Type D: birthday-qr-surprise-for-{relation}-{year}  (26 pages)
+  // Type D: birthday-qr-surprise-for-relation-year
   for (const r of relations) {
     for (const yr of years) {
       slugs.push(`birthday-qr-surprise-for-${r}-${yr}`);
     }
   }
 
-  // Type E: how-to-create-{modifier}-birthday-qr-for-{relation}  (130 pages)
+  // Type E: how-to-create-modifier-birthday-qr-for-relation
   for (const m of modifiers) {
     for (const r of relations) {
       slugs.push(`how-to-create-${m}-birthday-qr-for-${r}`);
     }
   }
 
-  // Type F: best-birthday-qr-ideas-for-{relation}  (13 pages)
+  // Type F: best-birthday-qr-ideas-for-relation
   for (const r of relations) {
     slugs.push(`best-birthday-qr-ideas-for-${r}`);
   }
 
-  // Deduplicate
+  // Type G: funny-birthday-qr-for-relation
+  for (const r of relations) {
+    slugs.push(`funny-birthday-qr-for-${r}`);
+  }
+
+  // Type H: short-birthday-qr-messages-for-relation
+  for (const r of relations) {
+    slugs.push(`short-birthday-qr-messages-for-${r}`);
+  }
+
+  // Deduplicate – yields 600+ unique slugs
   return Array.from(new Set(slugs));
 }
 
@@ -98,7 +113,7 @@ function detectParts(slug: string): {
 
   // Type A
   const typeA = slug.match(
-    /^(romantic|funny|emotional|creative|unique|sweet|heartfelt|surprise|special|cute)-birthday-qr-for-(.+)$/
+    /^(romantic|funny|emotional|creative|unique|sweet|heartfelt|surprise|special|cute|inspiring|touching|simple|short|poetic|classic|modern|vintage|epic|awesome)-birthday-qr-for-(.+)$/
   );
   if (typeA) {
     modifier = typeA[1];
@@ -107,7 +122,7 @@ function detectParts(slug: string): {
   }
 
   // Type B
-  const typeB = slug.match(/^birthday-qr-for-(.+)-in-(english|hindi|marathi)$/);
+  const typeB = slug.match(/^birthday-qr-for-(.+)-in-(english|hindi|marathi|spanish|french|german|tamil|telugu|kannada|gujarati|bengali|punjabi)$/);
   if (typeB) {
     relation = typeB[1];
     language = typeB[2];
@@ -115,7 +130,7 @@ function detectParts(slug: string): {
   }
 
   // Type C
-  const typeC = slug.match(/^(\d+th|milestone)-birthday-qr-for-(.+)$/);
+  const typeC = slug.match(/^(\d+th|milestone|\d+st|\d+nd|\d+rd)-birthday-qr-for-(.+)$/);
   if (typeC) {
     occasion = typeC[1];
     relation = typeC[2];
@@ -132,7 +147,7 @@ function detectParts(slug: string): {
 
   // Type E
   const typeE = slug.match(
-    /^how-to-create-(romantic|funny|emotional|creative|unique|sweet|heartfelt|surprise|special|cute)-birthday-qr-for-(.+)$/
+    /^how-to-create-(romantic|funny|emotional|creative|unique|sweet|heartfelt|surprise|special|cute|inspiring|touching|simple|short|poetic|classic|modern|vintage|epic|awesome)-birthday-qr-for-(.+)$/
   );
   if (typeE) {
     modifier = typeE[1];
@@ -147,6 +162,20 @@ function detectParts(slug: string): {
     type = 'ideas';
   }
 
+  // Type G
+  const typeG = slug.match(/^funny-birthday-qr-for-(.+)$/);
+  if (typeG) {
+    relation = typeG[1];
+    type = 'funny';
+  }
+
+  // Type H
+  const typeH = slug.match(/^short-birthday-qr-messages-for-(.+)$/);
+  if (typeH) {
+    relation = typeH[1];
+    type = 'short-messages';
+  }
+
   return { modifier, relation, language, occasion, year, type };
 }
 
@@ -156,12 +185,17 @@ const relationEmoji: Record<string, string> = {
   girlfriend: '💕', boyfriend: '💙', wife: '💍', husband: '🤵',
   'best-friend': '🤝', brother: '👊', sister: '🌸', mom: '🌷',
   dad: '👔', crush: '😍', colleague: '🤝', teacher: '📚', friend: '😊',
+  fiance: '💍', fiancee: '💍', nephew: '🧒', niece: '👧', grandma: '👵', grandpa: '👴',
+  son: '👦', daughter: '👧', aunt: '👩', uncle: '👨', cousin: '👨‍👩‍👧',
+  boss: '💼', mentor: '🎓', student: '📖'
 };
 
 const modifierEmoji: Record<string, string> = {
   romantic: '❤️', funny: '😂', emotional: '😢', creative: '🎨',
   unique: '✨', sweet: '🍬', heartfelt: '💝', surprise: '🎁',
-  special: '⭐', cute: '🥰',
+  special: '⭐', cute: '🥰', inspiring: '🌟', touching: '🥲',
+  simple: '🌿', short: '⚡', poetic: '📜', classic: '👔',
+  modern: '📱', vintage: '🎞️', epic: '🏆', awesome: '🤘'
 };
 
 // ─── Content Generator ────────────────────────────────────────
@@ -182,7 +216,8 @@ export interface BlogContent {
 
 const SAMPLE_DATES = [
   '2025-01-15', '2025-02-10', '2025-03-05', '2025-04-20',
-  '2025-05-12', '2025-06-18', '2025-11-25', '2025-12-01',
+  '2025-05-12', '2025-06-18', '2025-07-22', '2025-08-30',
+  '2025-09-14', '2025-10-01', '2025-11-25', '2025-12-01',
 ];
 
 function deterministicDate(slug: string) {
@@ -199,7 +234,7 @@ export function generateBlogContent(slug: string): BlogContent {
   const occLabel = occasion ? `${occasion} ` : '';
   const emoji = relationEmoji[relation] || modifierEmoji[modifier] || '🎉';
 
-  // ── Title & Description ──
+  // ── Title & Description & H1 & Intro ──
   let title = '';
   let description = '';
   let h1 = '';
@@ -235,6 +270,16 @@ export function generateBlogContent(slug: string): BlogContent {
     description = `Discover the best birthday QR code surprise ideas for your ${relLabel.toLowerCase()}. Animated wish pages, hidden messages, photo slideshows & more. Free!`;
     h1 = `10 Best Birthday QR Code Ideas for Your ${relLabel} ${emoji}`;
     intro = `Looking for creative ways to use birthday QR codes for your ${relLabel.toLowerCase()}? You've come to the right place. Below are 10 unique ideas that will make their birthday unforgettable — from romantic animated pages to fun meme collections.`;
+  } else if (type === 'funny') {
+    title = `Funny Birthday QR Code for ${relLabel} – Hilarious Surprise Page`;
+    description = `Make your ${relLabel.toLowerCase()} laugh out loud with a funny birthday QR surprise. Animated jokes, memes, and confetti – free generator.`;
+    h1 = `😂 Funny Birthday QR Surprise for ${relLabel}`;
+    intro = `Birthday humour is the best gift. Create a hilarious animated QR page for your ${relLabel.toLowerCase()} with funny inside jokes, witty one‑liners, and a confetti explosion. Your ${relLabel.toLowerCase()} will be laughing before they even blow out the candles.`;
+  } else if (type === 'short-messages') {
+    title = `Short Birthday QR Messages for ${relLabel} – Quick & Sweet Wishes`;
+    description = `Perfect short birthday wishes for your ${relLabel.toLowerCase()} in a QR code format. Instant, sweet, and shareable.`;
+    h1 = `✨ Short Birthday QR Messages for ${relLabel}`;
+    intro = `Not everyone needs a long paragraph. These short, punchy birthday messages fit perfectly on a QR surprise page – still magical, still heartfelt. Just fill in the name and a few words, and let the animated page do the rest.`;
   } else {
     title = `Birthday QR Surprise – Free Generator`;
     description = `Create a personalized birthday QR surprise. Free, instant, and magical.`;
@@ -242,8 +287,8 @@ export function generateBlogContent(slug: string): BlogContent {
     intro = `Surprise the people you love with a beautiful birthday QR code page.`;
   }
 
-  // ── Sections ──
-  const sections: { heading: string; body: string }[] = [
+  // ── Sections (slightly tailored by type) ──
+  let sections: { heading: string; body: string }[] = [
     {
       heading: `Why a QR Birthday Surprise for Your ${relLabel}?`,
       body: `Traditional birthday cards get forgotten in a drawer. A QR birthday page lives on their phone forever. Every time they scan it, they relive the animated confetti, the balloons, and your personal message. It's shareable, saveable, and absolutely free to create. Best of all, your ${relLabel.toLowerCase()} doesn't need any special app — just their phone camera.`,
@@ -262,6 +307,31 @@ export function generateBlogContent(slug: string): BlogContent {
     },
   ];
 
+  // Override for funny type
+  if (type === 'funny') {
+    sections = [
+      {
+        heading: `Why a Funny QR Birthday Page for ${relLabel}?`,
+        body: `Birthdays are better with laughter. A funny QR code page will catch your ${relLabel.toLowerCase()} off guard and make them smile (or snort). Imagine them scanning the code expecting "Happy Birthday" and instead getting a meme-worthy animation with confetti and silly jokes. Priceless.`,
+      },
+      {
+        heading: 'Funny Message Templates',
+        body: `Copy these hilarious messages: "You're not old, you're vintage!", "Age is just a number — in your case, a really big one 😂", "Congratulations on surviving another year of my terrible jokes!", "May your cake be moist and your wrinkles be minimal." Feel free to add your own inside jokes!`,
+      },
+      ...sections.slice(1),
+    ];
+  }
+
+  if (type === 'short-messages') {
+    sections = [
+      {
+        heading: `Short & Sweet Birthday Wishes for ${relLabel}`,
+        body: `Sometimes less is more. Here are perfect short messages: "Happy birthday to my favourite human 🎂", "You're the best thing since sliced cake 🍰", "Another year, still fabulous ✨". Add one of these to the QR page and let the animations do the rest.`,
+      },
+      ...sections.slice(1),
+    ];
+  }
+
   // ── Tips ──
   const tips = [
     `Add a photo or emoji in your message to make it extra personal.`,
@@ -270,6 +340,11 @@ export function generateBlogContent(slug: string): BlogContent {
     `Record a short voice note and paste the link in the message field for a multimedia surprise.`,
     `Use the "Copy Link" button to share via Instagram DM, Telegram, or email.`,
   ];
+
+  if (type === 'funny') {
+    tips.push(`Use a silly nickname for extra laughs – "Hey Potato" always works.`);
+    tips.push(`Add a fake "terms and conditions" joke in the message field.`);
+  }
 
   // ── FAQs ──
   const faqs: { q: string; a: string }[] = [
@@ -294,6 +369,13 @@ export function generateBlogContent(slug: string): BlogContent {
       a: `Yes! You can set the person's name, age, and a custom message. The page automatically generates beautiful animations around your content.`,
     },
   ];
+
+  if (type === 'funny') {
+    faqs.push({
+      q: `Can I make the page really sarcastic/funny?`,
+      a: `Yes, the message field accepts any text. Write whatever will make your ${relLabel.toLowerCase()} laugh — we won't judge.`,
+    });
+  }
 
   // ── Related Slugs ──
   const allSlugs = getAllSlugs();

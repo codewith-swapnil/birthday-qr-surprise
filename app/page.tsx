@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import HomeForm from '@/components/HomeForm';
-import { FEATURED_SLUGS, generateBlogContent } from '@/lib/blogData';
+import { FEATURED_SLUGS, generateBlogContent, getAllSlugs } from '@/lib/blogData';
 
 const StarField = dynamic(() => import('@/components/StarField'), { ssr: false });
 
@@ -49,6 +49,9 @@ export default function HomePage() {
     slug,
     ...generateBlogContent(slug),
   }));
+
+  // ✅ Get actual total number of blog posts
+  const totalBlogPosts = getAllSlugs().length;
 
   return (
     <>
@@ -293,7 +296,7 @@ export default function HomePage() {
                 href="/blog"
                 className="inline-block text-sm px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-yellow-400 transition-colors"
               >
-                🎂 Explore all birthday surprise ideas (400+ articles)
+                🎂 Explore all birthday surprise ideas ({totalBlogPosts}+ articles)
               </Link>
             </div>
           </section>
