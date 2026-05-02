@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     siteName: 'Birthday QR Surprise',
     images: [
       {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
+        url: 'icons/android-chrome-512x512.png',
+        width: 512,
+        height: 512,
         alt: 'Birthday QR Surprise – Create magical birthday wishes',
       },
     ],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Birthday QR Surprise – Free Birthday Wish Generator',
     description: 'Create a personalized animated birthday page with QR code – share via WhatsApp.',
-    images: ['/og-image.png'],
+    images: ['icons/android-chrome-512x512.png'],
   },
 };
 
