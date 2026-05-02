@@ -64,10 +64,10 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/icons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icons/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: 'https://wishqr.in/icons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: 'https://wishqr.in/icons/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
     ],
-    apple: '/icons/apple-touch-icon.png',
+    apple: 'https://wishqr.in/icons/apple-touch-icon.png',
   },
 };
 
