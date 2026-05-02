@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: 'Birthday QR Surprise',
     images: [
       {
-        url: 'icons/android-chrome-512x512.png',
+        url: 'https://wishqr.in/icons/android-chrome-512x512.png',
         width: 512,
         height: 512,
         alt: 'Birthday QR Surprise – Create magical birthday wishes',

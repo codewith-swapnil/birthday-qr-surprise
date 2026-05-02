@@ -2,7 +2,7 @@
 
 > A viral-ready birthday wish generator with QR codes, confetti, balloons, and stunning animations.
 
-![Birthday QR Surprise](public/icons/android-chrome-512x512.png)
+![Birthday QR Surprise](public/icons/android-chrome-192x192.png)
 
 ## ✨ Features
 

@@ -48,7 +48,7 @@ export const metadata: Metadata = {
       'Create a beautiful birthday QR code surprise! Share magical animated birthday wishes with friends & family.',
     images: [
       {
-        url: 'https://wishqr.in/icons/android-chrome-512x512.png',
+        url: 'https://wishqr.in/icons/android-chrome-192x192.png',
         width: 512,
         height: 512,
         alt: 'Birthday QR Surprise',
@@ -59,11 +59,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Birthday QR Surprise 🎉',
     description: 'Create personalized birthday QR codes with beautiful animated wish pages!',
-    images: ['https://wishqr.in/icons/android-chrome-512x512.png'],
+    images: ['https://wishqr.in/icons/android-chrome-192x192.png'],
   },
   manifest: '/manifest.json',
   icons: {
-    icon: '/icons/favicon-32x32.png',
+    icon: [
+      { url: '/icons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
     apple: '/icons/apple-touch-icon.png',
   },
 };
@@ -109,7 +112,7 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'Birthday QR Surprise',
               url: 'https://wishqr.in',
-              logo: 'https://wishqr.in/icons/android-chrome-512x512.png',
+              logo: 'https://wishqr.in/icons/android-chrome-192x192.png',
             }),
           }}
         />
