@@ -1,6 +1,6 @@
 export interface WishData {
   name: string;
-  age: string;
+  dateOfBirth: string;
   message: string;
   createdAt: string;
   images?: string[];   // Cloudinary URLs — optional
