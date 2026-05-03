@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { WishData, getOrdinal } from '@/lib/utils';
+import { WishData } from '@/types/wish';
+import { getOrdinal } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 
 const QRCodeSVG = dynamic(() => import('qrcode.react').then((m) => m.QRCodeSVG), { ssr: false });
@@ -197,7 +198,7 @@ export default function QRDisplay({ wish, onReset }: QRDisplayProps) {
               <div className="flex items-center gap-2">
                 <span style={{ color: '#fbbf24' }}>🎈</span>
                 <span style={{ color: 'rgba(248,244,255,0.7)' }}>
-                  Turning {getOrdinal(Number(data.dateOfBirth))}
+                  Birth {data.day + ' ' + data.month}
                 </span>
               </div>
               <div className="flex items-start gap-2 mt-2">
