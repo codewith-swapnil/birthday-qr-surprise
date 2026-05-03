@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/icons/icon1.png', sizes: '96x96', type: 'image/png' },
-      { url: '/icons/android-chrome-192192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
     ],
     apple: '/icons/apple-touch-icon.png',
   },
