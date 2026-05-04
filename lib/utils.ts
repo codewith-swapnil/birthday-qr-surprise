@@ -70,11 +70,17 @@ export function decodeWishData(encoded: string): WishData | null {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Generate a URL-friendly slug from name + day + month.
- * e.g.  generateSlug("Raveena", 24, "April") → "raveena-24-april"
+ * Generate a URL-friendly slug from name + day + month + a random 4-letter suffix.
+ * e.g.  generateSlug("Raveena", 24, "April") → "raveena-24-april-xyzw"
  */
 export function generateSlug(name: string, day: number, month: string): string {
-  const slug = `${name}-${day}-${month}`
+  // Generate 4 random lowercase letters
+  const randomSuffix = Array.from({ length: 4 }, () =>
+    String.fromCharCode(97 + Math.floor(Math.random() * 26))
+  ).join('');
+
+  const slugBase = `${name}-${day}-${month}-${randomSuffix}`;
+  const slug = slugBase
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')
     .replace(/-+/g, '-')
