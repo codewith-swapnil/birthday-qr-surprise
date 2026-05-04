@@ -9,8 +9,8 @@ import { MONTH_NAMES } from '@/types/wish';
 /* ─── types ─────────────────────────────────────────────── */
 interface FormState {
   name: string;
-  day: string;    // "14" | ""  — kept as string for input control
-  month: string;  // "April"  | ""
+  day: string;
+  month: string;
   message: string;
 }
 interface FormErrors {
@@ -18,7 +18,7 @@ interface FormErrors {
   day?: string;
   month?: string;
   message?: string;
-  dateOfBirth?: string; // combined error label for the picker
+  dateOfBirth?: string;
   images?: string;
   upload?: string;
 }
@@ -26,8 +26,8 @@ interface PreviewFile { id: string; file: File; previewUrl: string; }
 interface GeneratedWish { slug: string; url: string; data: WishData; }
 
 const ALLOWED = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-const MAX_SIZE = 2 * 1024 * 1024;
-const MAX_FILES = 8; // show up to 8 in the grid
+const MAX_SIZE = 10 * 1024 * 1024;
+const MAX_FILES = 2; // max 2 images
 
 const DAYS = Array.from({ length: 31 }, (_, i) => i + 1);
 
@@ -40,7 +40,7 @@ const QUICK_MESSAGES = [
 ];
 
 /* ═══════════════════════════════════════════════════════════
-   BirthdayDatePicker  — separate Day & Month dropdowns
+   BirthdayDatePicker
    ═══════════════════════════════════════════════════════════ */
 interface DatePickerProps {
   day: string;
@@ -55,7 +55,6 @@ function BirthdayDatePicker({ day, month, onDayChange, onMonthChange, error }: D
   const dayRef = useRef<HTMLDivElement>(null);
   const monthRef = useRef<HTMLDivElement>(null);
 
-  /* close on outside click */
   const closeHandler = useCallback((e: MouseEvent) => {
     if (
       !dayRef.current?.contains(e.target as Node) &&
@@ -106,7 +105,6 @@ function BirthdayDatePicker({ day, month, onDayChange, onMonthChange, error }: D
       `}</style>
 
       <div style={{ display: 'flex', gap: '.75rem' }}>
-
         {/* ── Day picker ── */}
         <div ref={dayRef} style={{ position: 'relative', flex: 1 }}>
           <button
@@ -162,7 +160,6 @@ function BirthdayDatePicker({ day, month, onDayChange, onMonthChange, error }: D
         </div>
       </div>
 
-      {/* Selected date badge */}
       {selDay && selMon && (
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '.4rem',
@@ -182,7 +179,6 @@ function BirthdayDatePicker({ day, month, onDayChange, onMonthChange, error }: D
   );
 }
 
-/* ── tiny sub-components ── */
 function Chevron({ open }: { open: boolean }) {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -203,6 +199,93 @@ function PanelHeader({ children }: { children: React.ReactNode }) {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   ImageCard — always-visible delete button
+   ═══════════════════════════════════════════════════════════ */
+interface ImageCardProps {
+  preview: PreviewFile;
+  index: number;
+  onRemove: (id: string) => void;
+}
+
+function ImageCard({ preview, index, onRemove }: ImageCardProps) {
+  return (
+    <div style={{
+      position: 'relative',
+      aspectRatio: '1/1',
+      borderRadius: '.85rem',
+      overflow: 'hidden',
+      border: '1px solid rgba(251,191,36,.25)',
+      background: '#0d0020',
+      boxShadow: '0 4px 16px rgba(0,0,0,.35)',
+    }}>
+      {/* Index badge */}
+      <div style={{
+        position: 'absolute', top: 6, left: 7, zIndex: 2,
+        background: 'rgba(0,0,0,.6)', backdropFilter: 'blur(4px)',
+        borderRadius: '1rem', padding: '1px 8px',
+        fontSize: '.6rem', color: 'rgba(255,255,255,.8)', fontWeight: 700,
+        letterSpacing: '.04em',
+      }}>
+        {index + 1}
+      </div>
+
+      {/* Delete button — always visible, top-right */}
+      <button
+        type="button"
+        onClick={() => onRemove(preview.id)}
+        aria-label={`Remove photo ${index + 1}`}
+        title="Remove photo"
+        style={{
+          position: 'absolute', top: 6, right: 6, zIndex: 3,
+          width: 28, height: 28,
+          background: 'rgba(239,68,68,.9)',
+          border: '1.5px solid rgba(255,255,255,.25)',
+          borderRadius: '50%',
+          cursor: 'pointer',
+          color: 'white',
+          fontSize: '1rem',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          lineHeight: 1,
+          boxShadow: '0 2px 8px rgba(0,0,0,.45)',
+          transition: 'transform .15s ease, background .15s ease',
+        }}
+        onMouseEnter={e => {
+          (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1.15)';
+          (e.currentTarget as HTMLButtonElement).style.background = 'rgba(220,38,38,1)';
+        }}
+        onMouseLeave={e => {
+          (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)';
+          (e.currentTarget as HTMLButtonElement).style.background = 'rgba(239,68,68,.9)';
+        }}
+      >
+        {/* Trash icon */}
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="3 6 5 6 21 6" />
+          <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+          <path d="M10 11v6M14 11v6" />
+          <path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+        </svg>
+      </button>
+
+      {/* Image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={preview.previewUrl}
+        alt={`Preview ${index + 1}`}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+      />
+
+      {/* Subtle gradient overlay at bottom for depth */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, height: '40%',
+        background: 'linear-gradient(to top, rgba(0,0,0,.45), transparent)',
+        pointerEvents: 'none',
+      }} />
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    HomeForm
    ═══════════════════════════════════════════════════════════ */
 export default function HomeForm() {
@@ -216,7 +299,6 @@ export default function HomeForm() {
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  /* ── validate ── */
   function validate(): boolean {
     const errs: FormErrors = {};
     if (!form.name.trim() || form.name.trim().length < 2)
@@ -232,7 +314,6 @@ export default function HomeForm() {
     return Object.keys(errs).length === 0;
   }
 
-  /* ── file handling ── */
   const addFiles = useCallback((incoming: FileList | File[]) => {
     const files = Array.from(incoming);
     const errs: string[] = [];
@@ -242,13 +323,16 @@ export default function HomeForm() {
     for (const file of files) {
       if (slots <= 0) break;
       if (!ALLOWED.includes(file.type)) { errs.push(`"${file.name}" is not a valid type`); continue; }
-      if (file.size > MAX_SIZE) { errs.push(`"${file.name}" exceeds 2 MB`); continue; }
+      if (file.size > MAX_SIZE) { errs.push(`"${file.name}" exceeds 10 MB`); continue; }
       valid.push({ id: `${file.name}-${file.lastModified}`, file, previewUrl: URL.createObjectURL(file) });
       slots--;
     }
     setPreviews(prev => {
       const combined = [...prev, ...valid];
-      if (combined.length > MAX_FILES) { errs.push(`Only first ${MAX_FILES} kept.`); return combined.slice(0, MAX_FILES); }
+      if (combined.length > MAX_FILES) {
+        errs.push(`Only first ${MAX_FILES} kept.`);
+        return combined.slice(0, MAX_FILES);
+      }
       return combined;
     });
     setErrors(e => ({ ...e, images: errs.length ? errs[0] : undefined }));
@@ -260,6 +344,8 @@ export default function HomeForm() {
       if (item) URL.revokeObjectURL(item.previewUrl);
       return prev.filter(p => p.id !== id);
     });
+    // Clear any image error when user removes an image
+    setErrors(e => ({ ...e, images: undefined }));
   }
 
   function onDrop(e: React.DragEvent) { e.preventDefault(); setDragOver(false); addFiles(e.dataTransfer.files); }
@@ -360,7 +446,7 @@ export default function HomeForm() {
             {errors.name && <p className="mt-1.5 text-xs" style={{ color: '#f87171' }}>⚠️ {errors.name}</p>}
           </div>
 
-          {/* ── Date of Birth — Separate Day + Month ── */}
+          {/* ── Date of Birth ── */}
           <div className="mb-5" style={{ position: 'relative', zIndex: 20 }}>
             <label className="block text-sm font-medium mb-2" style={{ color: 'rgba(248,244,255,.7)', letterSpacing: '.05em' }}>
               🎈 Birthday Date{' '}
@@ -410,16 +496,28 @@ export default function HomeForm() {
               <span style={{ color: 'rgba(248,244,255,.35)', fontWeight: 400 }}>(optional · max {MAX_FILES})</span>
             </label>
 
+            {/* Drop zone — only shown when spots remain */}
             {spotsLeft > 0 && (
               <div
                 onClick={() => fileInputRef.current?.click()}
                 onDrop={onDrop}
                 onDragOver={e => { e.preventDefault(); setDragOver(true); }}
                 onDragLeave={() => setDragOver(false)}
-                style={{ border: `2px dashed ${dragOver ? 'rgba(251,191,36,.6)' : 'rgba(255,255,255,.1)'}`, borderRadius: '1rem', background: dragOver ? 'rgba(251,191,36,.05)' : 'rgba(255,255,255,.02)', padding: '1.5rem 1rem', textAlign: 'center', cursor: 'pointer', transition: 'all .25s ease', marginBottom: previews.length ? '1rem' : 0 }}>
+                style={{
+                  border: `2px dashed ${dragOver ? 'rgba(251,191,36,.6)' : 'rgba(255,255,255,.1)'}`,
+                  borderRadius: '1rem',
+                  background: dragOver ? 'rgba(251,191,36,.05)' : 'rgba(255,255,255,.02)',
+                  padding: '1.5rem 1rem', textAlign: 'center', cursor: 'pointer',
+                  transition: 'all .25s ease',
+                  marginBottom: previews.length ? '1rem' : 0,
+                }}>
                 <div style={{ fontSize: '2rem', marginBottom: '.5rem' }}>🖼️</div>
-                <p style={{ color: 'rgba(248,244,255,.5)', fontSize: '.85rem', marginBottom: '.25rem' }}>Tap to add photos or drag &amp; drop</p>
-                <p style={{ color: 'rgba(248,244,255,.25)', fontSize: '.72rem' }}>JPG, PNG, WEBP · Max 2 MB · {spotsLeft} spot{spotsLeft !== 1 ? 's' : ''} left</p>
+                <p style={{ color: 'rgba(248,244,255,.5)', fontSize: '.85rem', marginBottom: '.25rem' }}>
+                  Tap to add photos or drag &amp; drop
+                </p>
+                <p style={{ color: 'rgba(248,244,255,.25)', fontSize: '.72rem' }}>
+                  JPG, PNG, WEBP · Max 10 MB · {spotsLeft} spot{spotsLeft !== 1 ? 's' : ''} left
+                </p>
               </div>
             )}
 
@@ -429,28 +527,45 @@ export default function HomeForm() {
               onChange={e => { if (e.target.files) addFiles(e.target.files); e.target.value = ''; }}
             />
 
+            {/* Image grid */}
             {previews.length > 0 && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '.6rem' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: `repeat(${MAX_FILES}, 1fr)`,
+                gap: '.75rem',
+              }}>
                 {previews.map((p, i) => (
-                  <div key={p.id} style={{ position: 'relative', aspectRatio: '1/1', borderRadius: '.75rem', overflow: 'hidden', border: '1px solid rgba(251,191,36,.2)', background: '#0d0020' }}>
-                    <div style={{ position: 'absolute', top: 5, left: 6, zIndex: 2, background: 'rgba(0,0,0,.55)', borderRadius: '1rem', padding: '1px 7px', fontSize: '.6rem', color: 'rgba(255,255,255,.7)', fontWeight: 600 }}>{i + 1}</div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.previewUrl} alt={`Preview ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                    <div
-                      style={{ position: 'absolute', inset: 0, background: 'rgba(3,0,20,.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0, transition: 'opacity .2s' }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.opacity = '1'; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.opacity = '0'; }}>
-                      <button type="button" onClick={() => removePreview(p.id)}
-                        style={{ background: 'rgba(239,68,68,.85)', border: 'none', borderRadius: '50%', width: 30, height: 30, cursor: 'pointer', color: 'white', fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
-                    </div>
-                  </div>
+                  <ImageCard key={p.id} preview={p} index={i} onRemove={removePreview} />
                 ))}
-                {spotsLeft > 0 && (
-                  <button type="button" onClick={() => fileInputRef.current?.click()}
-                    style={{ aspectRatio: '1/1', borderRadius: '.75rem', border: '2px dashed rgba(255,255,255,.1)', background: 'rgba(255,255,255,.02)', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '.25rem', color: 'rgba(248,244,255,.3)', fontSize: '.75rem', transition: 'all .2s ease' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(251,191,36,.4)'; (e.currentTarget as HTMLButtonElement).style.color = 'rgba(251,191,36,.7)'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,.1)'; (e.currentTarget as HTMLButtonElement).style.color = 'rgba(248,244,255,.3)'; }}>
-                    <span style={{ fontSize: '1.4rem', lineHeight: 1 }}>+</span>
+                {/* Add-more slot when one image selected and slot remains */}
+                {spotsLeft > 0 && previews.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    aria-label="Add another photo"
+                    style={{
+                      aspectRatio: '1/1', borderRadius: '.85rem',
+                      border: '2px dashed rgba(255,255,255,.1)',
+                      background: 'rgba(255,255,255,.02)', cursor: 'pointer',
+                      display: 'flex', flexDirection: 'column',
+                      alignItems: 'center', justifyContent: 'center',
+                      gap: '.3rem', color: 'rgba(248,244,255,.3)',
+                      fontSize: '.75rem', transition: 'all .2s ease',
+                    }}
+                    onMouseEnter={e => {
+                      const b = e.currentTarget as HTMLButtonElement;
+                      b.style.borderColor = 'rgba(251,191,36,.4)';
+                      b.style.color = 'rgba(251,191,36,.7)';
+                      b.style.background = 'rgba(251,191,36,.04)';
+                    }}
+                    onMouseLeave={e => {
+                      const b = e.currentTarget as HTMLButtonElement;
+                      b.style.borderColor = 'rgba(255,255,255,.1)';
+                      b.style.color = 'rgba(248,244,255,.3)';
+                      b.style.background = 'rgba(255,255,255,.02)';
+                    }}
+                  >
+                    <span style={{ fontSize: '1.6rem', lineHeight: 1 }}>+</span>
                     <span>Add</span>
                   </button>
                 )}
@@ -459,9 +574,10 @@ export default function HomeForm() {
 
             {errors.images && <p className="mt-2 text-xs" style={{ color: '#f87171' }}>⚠️ {errors.images}</p>}
             {errors.upload && <p className="mt-2 text-xs" style={{ color: '#f87171' }}>❌ {errors.upload}</p>}
+
             {previews.length > 0 && (
               <p style={{ marginTop: '.6rem', fontSize: '.7rem', color: 'rgba(248,244,255,.25)', textAlign: 'center' }}>
-                {previews.length} photo{previews.length > 1 ? 's' : ''} · All will appear on the birthday page
+                {previews.length}/{MAX_FILES} photo{previews.length > 1 ? 's' : ''} · Tap 🗑 to remove
               </p>
             )}
           </div>
