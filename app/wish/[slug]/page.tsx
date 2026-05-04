@@ -18,7 +18,7 @@ const getWish = cache(async (slug: string): Promise<WishData | null> => {
     const wish = await Wish.findOneAndUpdate(
       { slug },
       { $inc: { viewCount: 1 } },
-      { new: true }
+      { returnDocument: 'after' }
     ).lean();
     return wish ? (wish.data as WishData) : null;
   } catch (err) {
@@ -75,13 +75,13 @@ export default async function WishPage({ params }: PageProps) {
 
   const schemaData = data
     ? {
-        '@context': 'https://schema.org',
-        '@type': 'Event',
-        name: `${data.name}'s Birthday`,
-        description: data.message,
-        eventStatus: 'https://schema.org/EventScheduled',
-        organizer: { '@type': 'Person', name: 'Birthday QR Surprise' },
-      }
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: `${data.name}'s Birthday`,
+      description: data.message,
+      eventStatus: 'https://schema.org/EventScheduled',
+      organizer: { '@type': 'Person', name: 'Birthday QR Surprise' },
+    }
     : null;
 
   return (
