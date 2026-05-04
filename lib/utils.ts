@@ -21,7 +21,7 @@ import { MONTH_NAMES } from '@/types/wish';
 export function encodeWishData(data: WishData): string {
   try {
     const json = JSON.stringify(data);
-    const b64  = Buffer.from(json, 'utf-8').toString('base64');
+    const b64 = Buffer.from(json, 'utf-8').toString('base64');
     return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   } catch {
     return '';
@@ -34,31 +34,31 @@ export function encodeWishData(data: WishData): string {
  */
 export function decodeWishData(encoded: string): WishData | null {
   try {
-    const b64  = encoded
+    const b64 = encoded
       .replace(/-/g, '+')
       .replace(/_/g, '/')
       .padEnd(encoded.length + ((4 - (encoded.length % 4)) % 4), '=');
     const json = Buffer.from(b64, 'base64').toString('utf-8');
-    const p    = JSON.parse(json) as Partial<WishData>;
+    const p = JSON.parse(json) as Partial<WishData>;
 
     if (
-      typeof p.name   !== 'string' ||
-      typeof p.day    !== 'number' ||
-      typeof p.month  !== 'string' ||
-      typeof p.message  !== 'string' ||
+      typeof p.name !== 'string' ||
+      typeof p.day !== 'number' ||
+      typeof p.month !== 'string' ||
+      typeof p.message !== 'string' ||
       typeof p.createdAt !== 'string'
     ) return null;
 
-    if (p.day < 1 || p.day > 31)            return null;
+    if (p.day < 1 || p.day > 31) return null;
     if (!MONTH_NAMES.includes(p.month as never)) return null;
 
     return {
-      name:      p.name,
-      day:       p.day,
-      month:     p.month,
-      message:   p.message,
+      name: p.name,
+      day: p.day,
+      month: p.month,
+      message: p.message,
       createdAt: p.createdAt,
-      images:    Array.isArray(p.images) ? p.images : undefined,
+      images: Array.isArray(p.images) ? p.images : undefined,
     };
   } catch {
     return null;
@@ -85,9 +85,8 @@ export function generateSlug(name: string, day: number, month: string): string {
 /**
  * Build the full sharable wish URL including the encoded payload.
  */
-export function buildWishUrl(slug: string, data: WishData, baseUrl: string): string {
-  const encoded = encodeWishData(data);
-  return `${baseUrl}/wish/${slug}?d=${encoded}`;
+export function buildWishUrl(slug: string, baseUrl: string): string {
+  return `${baseUrl}/wish/${slug}`;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -95,9 +94,9 @@ export function buildWishUrl(slug: string, data: WishData, baseUrl: string): str
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function getOrdinal(n: number): string {
-  const abs    = Math.abs(n);
+  const abs = Math.abs(n);
   const mod100 = abs % 100;
-  const mod10  = abs % 10;
+  const mod10 = abs % 10;
   if (mod100 >= 11 && mod100 <= 13) return `${n}th`;
   if (mod10 === 1) return `${n}st`;
   if (mod10 === 2) return `${n}nd`;
@@ -119,7 +118,7 @@ export function monthIndex(month: string): number {
  */
 export function isBirthdayToday(day: number, month: string): boolean {
   const today = new Date();
-  const mi    = monthIndex(month);
+  const mi = monthIndex(month);
   return mi !== -1 && today.getMonth() === mi && today.getDate() === day;
 }
 
@@ -131,9 +130,9 @@ export function msToNextBirthday(day: number, month: string): number {
   const mi = monthIndex(month);
   if (mi === -1) return 0;
 
-  const now   = Date.now();
+  const now = Date.now();
   const today = new Date();
-  let year    = today.getFullYear();
+  let year = today.getFullYear();
 
   // Try this year
   let next = new Date(year, mi, day, 0, 0, 0, 0).getTime();

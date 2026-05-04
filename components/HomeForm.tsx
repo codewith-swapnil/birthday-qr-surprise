@@ -392,7 +392,28 @@ export default function HomeForm() {
 
     const slug = generateSlug(wishData.name, wishData.day, wishData.month);
     const baseUrl = window.location.origin;
-    const url = buildWishUrl(slug, wishData, baseUrl);
+    const url = buildWishUrl(slug, baseUrl);
+
+    try {
+      setUploadMsg('Saving your wish…');
+      const res = await fetch('/api/wishes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, url, data: wishData }),
+      });
+      if (!res.ok) {
+        const json = await res.json();
+        throw new Error(json.error ?? 'Failed to save wish');
+      }
+    } catch (err) {
+      // Now this IS fatal — without DB the wish page would be empty
+      const msg = err instanceof Error ? err.message : 'Could not save wish';
+      setErrors(prev => ({ ...prev, upload: msg }));
+      setLoading(false);
+      setUploadMsg('');
+      return;
+    }
+
     setGenerated({ slug, url, data: wishData });
     setStep('result');
     setLoading(false);

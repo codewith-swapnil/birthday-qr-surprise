@@ -1,15 +1,35 @@
 import type { Metadata } from 'next';
-import { decodeWishData, getOrdinal, formatBirthdayDisplay } from '@/lib/utils';
+import { formatBirthdayDisplay } from '@/lib/utils';
 import BirthdayWish from '@/components/BirthdayWish';
 import type { WishData } from '@/types/wish';
+import { connectDB } from '@/lib/mongodb';
+import Wish from '@/models/Wish';
+import { cache } from 'react';
 
 interface PageProps {
   params: { slug: string };
-  searchParams: { d?: string };
+  searchParams: Record<string, never>;   // no query params needed anymore
 }
 
-export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const data: WishData | null = searchParams.d ? decodeWishData(searchParams.d) : null;
+/* ── Deduplicated DB fetch (one round-trip per request) ── */
+const getWish = cache(async (slug: string): Promise<WishData | null> => {
+  try {
+    await connectDB();
+    const wish = await Wish.findOneAndUpdate(
+      { slug },
+      { $inc: { viewCount: 1 } },
+      { new: true }
+    ).lean();
+    return wish ? (wish.data as WishData) : null;
+  } catch (err) {
+    console.error('[WishPage] DB error:', err);
+    return null;
+  }
+});
+
+/* ── Metadata ── */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const data = await getWish(params.slug);
 
   if (!data) {
     return {
@@ -19,14 +39,13 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   }
 
   const bdDisplay = formatBirthdayDisplay(data.day, data.month);
-  // No year stored — we can't compute an exact age, so skip the ordinal suffix in meta
   const ogImage = data.images?.[0]
     ? [{ url: data.images[0], width: 1200, height: 630 }]
     : [{ url: '/og-birthday.png', width: 1200, height: 630 }];
 
   return {
     title: `Happy Birthday ${data.name}! 🎉 | Birthday QR Surprise`,
-    description: `Celebrate ${data.name}'s birthday on ${bdDisplay}! A special personalised birthday surprise made just for them. ${data.message.substring(0, 100)}${data.message.length > 100 ? '…' : ''}`,
+    description: `Celebrate ${data.name}'s birthday on ${bdDisplay}! ${data.message.substring(0, 100)}${data.message.length > 100 ? '…' : ''}`,
     keywords: [
       `happy birthday ${data.name}`,
       `birthday wish ${data.name}`,
@@ -50,17 +69,16 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   };
 }
 
-export default function WishPage({ params, searchParams }: PageProps) {
-  const rawData: WishData | null = searchParams.d
-    ? decodeWishData(searchParams.d)
-    : null;
+/* ── Page ── */
+export default async function WishPage({ params }: PageProps) {
+  const data = await getWish(params.slug);   // cache deduplicates — no second DB hit
 
-  const schemaData = rawData
+  const schemaData = data
     ? {
         '@context': 'https://schema.org',
         '@type': 'Event',
-        name: `${rawData.name}'s Birthday`,
-        description: rawData.message,
+        name: `${data.name}'s Birthday`,
+        description: data.message,
         eventStatus: 'https://schema.org/EventScheduled',
         organizer: { '@type': 'Person', name: 'Birthday QR Surprise' },
       }
@@ -74,7 +92,7 @@ export default function WishPage({ params, searchParams }: PageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
         />
       )}
-      <BirthdayWish rawData={rawData} slug={params.slug} />
+      <BirthdayWish rawData={data} slug={params.slug} />
     </>
   );
 }
