@@ -28,7 +28,7 @@ export default function TermsPage() {
           <p className="text-sm mb-6" style={{ color: 'rgba(248,244,255,0.4)' }}>Effective: April 28, 2026</p>
 
           <div className="space-y-6 text-sm md:text-base" style={{ color: 'rgba(248,244,255,0.7)' }}>
-            <p>Welcome to Birthday QR Surprise! By using our website (birthdayqrsurprise.com), you agree to these Terms.</p>
+            <p>Welcome to Birthday QR Surprise! By using our website (wishqr.in), you agree to these Terms.</p>
 
             <h2 className="text-xl font-semibold mt-6" style={{ color: '#fde68a' }}>1. Service Description</h2>
             <p>We provide a free tool to generate personalized birthday pages with QR codes. The service is provided “as is” without warranties of any kind.</p>

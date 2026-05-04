@@ -35,7 +35,7 @@ export default function ContactPage() {
               <span className="text-2xl">✉️</span>
               <div>
                 <h2 className="font-semibold" style={{ color: '#fde68a' }}>Email</h2>
-                <p className="text-sm"><a href="mailto:support@birthdayqrsurprise.com" className="hover:text-yellow-400 transition-colors">support@birthdayqrsurprise.com</a></p>
+                <p className="text-sm"><a href="mailto:support@wishqr.in" className="hover:text-yellow-400 transition-colors">support@wishqr.in</a></p>
                 <p className="text-xs mt-1" style={{ color: 'rgba(248,244,255,0.4)' }}>We aim to reply within 48 hours.</p>
               </div>
             </div>
@@ -52,14 +52,14 @@ export default function ContactPage() {
               <span className="text-2xl">📮</span>
               <div>
                 <h2 className="font-semibold" style={{ color: '#fde68a' }}>Business / Partnership</h2>
-                <p className="text-sm">For collaborations or advertising inquiries: <a href="mailto:partners@birthdayqrsurprise.com" className="hover:text-yellow-400 transition-colors">partners@birthdayqrsurprise.com</a></p>
+                <p className="text-sm">For collaborations or advertising inquiries: <a href="mailto:partners@wishqr.in" className="hover:text-yellow-400 transition-colors">partners@wishqr.in</a></p>
               </div>
             </div>
           </div>
 
           <div className="mt-10 pt-6 border-t" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
             <p className="text-xs" style={{ color: 'rgba(248,244,255,0.4)' }}>
-              You can also reach out via the feedback form (coming soon) or simply tweet us at <span className="text-yellow-400">@BirthdayQR</span>.
+              You can also reach out via the feedback form (coming soon) or simply tweet us at <span className="text-yellow-400">@WishQR</span>.
             </p>
           </div>
         </div>
