@@ -10,7 +10,7 @@ cloudinary.config({
 export const maxDuration = 30; // Vercel Pro / hobby: up to 60s
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB  ✅ updated
 const MAX_FILES     = 5;
 
 export async function POST(req: NextRequest) {
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
       }
       if (file.size > MAX_FILE_SIZE) {
         return NextResponse.json(
-          { error: `"${file.name}" exceeds 2 MB limit` },
+          { error: `"${file.name}" exceeds 10 MB limit` }, // ✅ updated
           { status: 400 }
         );
       }
