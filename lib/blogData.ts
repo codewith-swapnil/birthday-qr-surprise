@@ -405,6 +405,7 @@ export function generateBlogContent(slug: string): BlogContent {
     emoji,
     readingTime: '4 min read',
     publishDate: deterministicDate(slug),
+    dateModified: deterministicDate(slug),
   };
 }
 
