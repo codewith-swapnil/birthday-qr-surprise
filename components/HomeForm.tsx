@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import QRDisplay from './QRDisplay';
 import { generateSlug, buildWishUrl } from '@/lib/utils';
 import type { WishData } from '@/types/wish';
-import { uploadImages as uploadImagesToCloud } from '@/lib/upload-images';
 import { MONTH_NAMES } from '@/types/wish';
 
 /* ─── types ─────────────────────────────────────────────── */
@@ -354,8 +353,12 @@ export default function HomeForm() {
   async function uploadImages(): Promise<string[]> {
     if (previews.length === 0) return [];
     setUploadMsg('Uploading photos…');
-    // Client-side validation + signed direct upload — no image bytes hit our server
-    return uploadImagesToCloud(previews.map(p => p.file));
+    const fd = new FormData();
+    previews.forEach(p => fd.append('images', p.file));
+    const res = await fetch('/api/upload', { method: 'POST', body: fd });
+    const json = await res.json();
+    if (!res.ok || json.error) throw new Error(json.error || 'Upload failed');
+    return json.urls as string[];
   }
 
   async function handleSubmit(e: React.FormEvent) {
