@@ -110,9 +110,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         </div>
 
         {/* Ad slot */}
-        <div className="ad-slot h-16 rounded-xl mb-10" aria-label="Advertisement">
+        {/* <div className="ad-slot h-16 rounded-xl mb-10" aria-label="Advertisement">
           <span>Advertisement</span>
-        </div>
+        </div> */}
 
         {/* Featured Posts */}
         <h2

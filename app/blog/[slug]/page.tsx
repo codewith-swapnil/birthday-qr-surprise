@@ -109,9 +109,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </nav>
 
         {/* Ad slot */}
-        <div className="ad-slot h-16 rounded-xl mb-10" aria-label="Advertisement">
+        {/* <div className="ad-slot h-16 rounded-xl mb-10" aria-label="Advertisement">
           <span>Advertisement</span>
-        </div>
+        </div> */}
 
         {/* Article Header */}
         <header className="mb-10">
@@ -210,9 +210,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </div>
 
         {/* Mid Ad */}
-        <div className="ad-slot h-20 rounded-xl my-12" aria-label="Advertisement">
+        {/* <div className="ad-slot h-20 rounded-xl my-12" aria-label="Advertisement">
           <span>Advertisement</span>
-        </div>
+        </div> */}
 
         {/* FAQ Section */}
         <section className="mt-4">

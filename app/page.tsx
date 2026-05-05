@@ -103,14 +103,14 @@ export default function HomePage() {
 
         <div className="relative z-10 px-4 sm:px-6 py-8 md:py-12 lg:py-16">
           {/* Top Ad Banner - responsive height */}
-          <div className="max-w-3xl mx-auto mb-6 md:mb-8">
+          {/* <div className="max-w-3xl mx-auto mb-6 md:mb-8">
             <div
               className="ad-slot h-14 sm:h-16 rounded-xl"
               aria-label="Advertisement space"
             >
               <span>Advertisement</span>
             </div>
-          </div>
+          </div> */}
 
           {/* Header Section */}
           <header className="text-center mb-10 md:mb-14">
@@ -174,14 +174,14 @@ export default function HomePage() {
           <HomeForm />
 
           {/* Middle Ad */}
-          <div className="max-w-3xl mx-auto mt-12 md:mt-14 mb-6">
+          {/* <div className="max-w-3xl mx-auto mt-12 md:mt-14 mb-6">
             <div
               className="ad-slot h-20 sm:h-24 rounded-xl"
               aria-label="Advertisement space"
             >
               <span>Advertisement</span>
             </div>
-          </div>
+          </div> */}
 
           {/* How It Works Section */}
           <section className="max-w-4xl mx-auto mt-10 md:mt-12 text-center" aria-labelledby="how-it-works-heading">
