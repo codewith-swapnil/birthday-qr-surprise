@@ -3,6 +3,7 @@ import './globals.css';
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Script from 'next/script';
 
 export const viewport: Viewport = {
   themeColor: '#030014',
@@ -112,15 +113,6 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* -- Google tag (gtag.js) -- */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18141822593"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'AW-18141822593');
-        </script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -160,6 +152,18 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18141822593"
+          strategy="afterInteractive"
+        />
+        <Script id="google-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18141822593');
+          `}
+        </Script>
         <ServiceWorkerRegistration />
         {children}
         <Analytics />
