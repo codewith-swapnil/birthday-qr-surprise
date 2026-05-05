@@ -7,23 +7,63 @@ import { FEATURED_SLUGS, generateBlogContent, getAllSlugs } from '@/lib/blogData
 const StarField = dynamic(() => import('@/components/StarField'), { ssr: false });
 
 export const metadata: Metadata = {
-  title: 'Birthday QR Surprise 🎉 – Free Birthday Wish Generator & QR Code Creator',
+  title: 'Happy Birthday Wish Generator 🎉 – Free Personalized Birthday QR Code',
   description:
-    'Create a personalized birthday surprise with QR code. Enter name, age & message to generate a magical animated wish page with confetti and balloons. Share instantly via WhatsApp. 100% free.',
+    'Send the perfect happy birthday wish for friend, sister, brother, wife, husband, girlfriend, boyfriend or love — free! Create an animated wish page with confetti & QR code. Share instantly via WhatsApp. Happy birthday wish kaise kare? We make it easy!',
   keywords: [
+    // "wish" singular cluster — new batch
+    'happy birthday wish',
+    'happy birthday wish for friend',
+    'happy birthday wish friend',
+    'happy birthday wish for sister',
+    'happy birthday wish sister',
+    'happy birthday wish for brother',
+    'happy birthday wish for best friend',
+    'happy birthday wish for wife',
+    'happy birthday wish for husband',
+    'happy birthday wish for love',
+    'happy birthday wish for gf',
+    'happy birthday wish for bf',
+    'happy birthday wish for girlfriend',
+    'happy birthday wish for son',
+    'happy birthday wish in english',
+    'happy birthday wish kaise kare',
+    'happy birthday wish kaise kare in english',
+    'happy birthday wish kaise karen',
+    'happy birthday wish in marathi',
+    'happy birthday wish in hindi',
+    // "wishes" plural cluster — carried over from layout
+    'happy birthday wishes',
+    'happy birthday wishes for friend',
+    'happy birthday wishes for sister',
+    'happy birthday wishes for brother',
+    'happy birthday wishes for best friend',
+    'happy birthday wishes for wife',
+    'happy birthday wishes for husband',
+    'happy birthday wishes for love',
+    'happy birthday my love',
+    'wish you happy birthday',
+    'happy birthday wishes in marathi',
+    'happy birthday wishes in hindi',
+    'happy birthday wishes in english',
+    'happy birthday images',
+    'happy birthday quotes',
+    // Product / QR-specific
+    'happy birthday qr code generator free',
+    'birthday wishes qr code free',
     'birthday wish generator',
-    'free birthday QR code',
+    'birthday QR code',
     'personalized birthday message',
-    'magical birthday surprise',
-    'birthday page with confetti',
-    'shareable birthday link',
+    'birthday surprise',
+    'digital birthday card',
   ],
   alternates: {
     canonical: 'https://wishqr.in',
   },
   openGraph: {
-    title: 'Birthday QR Surprise – Free Magical Birthday Wish Generator',
-    description: 'Generate a stunning birthday page with confetti, balloons, and a QR code. Share the love in seconds!',
+    title: 'Happy Birthday Wish Generator 🎉 – Free Personalized QR Code',
+    description:
+      'Send a magical happy birthday wish for friend, sister, brother, wife, husband, gf or bf — animated page + QR code, free & instant!',
     url: 'https://wishqr.in',
     siteName: 'Birthday QR Surprise',
     images: [
@@ -31,16 +71,17 @@ export const metadata: Metadata = {
         url: 'https://wishqr.in/icons/android-chrome-512x512.png',
         width: 512,
         height: 512,
-        alt: 'Birthday QR Surprise – Create magical birthday wishes',
+        alt: 'Happy Birthday Wish Generator – Birthday QR Surprise',
       },
     ],
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Birthday QR Surprise – Free Birthday Wish Generator',
-    description: 'Create a personalized animated birthday page with QR code – share via WhatsApp.',
-    images: ['icons/android-chrome-512x512.png'],
+    title: 'Happy Birthday Wish Generator 🎉 – Free & Animated',
+    description:
+      'Create a personalized happy birthday wish for friend, sister, brother, wife or husband — with a free animated QR wish page!',
+    images: ['https://wishqr.in/icons/android-chrome-512x512.png'],
   },
 };
 
@@ -102,16 +143,6 @@ export default function HomePage() {
         />
 
         <div className="relative z-10 px-4 sm:px-6 py-8 md:py-12 lg:py-16">
-          {/* Top Ad Banner - responsive height */}
-          {/* <div className="max-w-3xl mx-auto mb-6 md:mb-8">
-            <div
-              className="ad-slot h-14 sm:h-16 rounded-xl"
-              aria-label="Advertisement space"
-            >
-              <span>Advertisement</span>
-            </div>
-          </div> */}
-
           {/* Header Section */}
           <header className="text-center mb-10 md:mb-14">
             {/* Floating emoji row */}
@@ -131,9 +162,9 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3 md:mb-4 leading-tight">
-              <span className="gold-text">Create a Surprise</span>
+              <span className="gold-text">Happy Birthday Wish</span>
               <br />
-              <span className="text-white">Birthday Wish</span>{' '}
+              <span className="text-white">Generator</span>{' '}
               <span
                 aria-hidden="true"
                 className="inline-block animate-float"
@@ -143,10 +174,16 @@ export default function HomePage() {
               </span>
             </h1>
 
+            {/* SEO-rich subtitle naturally incorporating keyword variants */}
             <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-gray-300">
-              Generate a beautiful birthday page with{' '}
+              Create a beautiful birthday wish for{' '}
+              <span className="text-yellow-400 font-semibold">
+                friend, sister, brother, wife, husband
+              </span>{' '}
+              or{' '}
+              <span className="text-pink-400 font-semibold">your love</span> — with{' '}
               <span className="text-yellow-400 font-semibold">animations & confetti</span>,
-              then share it as a{' '}
+              shared as a{' '}
               <span className="text-pink-400 font-semibold">QR code</span> or link.
               <br className="hidden md:block" /> Free, instant, and utterly magical. ✨
             </p>
@@ -173,23 +210,13 @@ export default function HomePage() {
           {/* Interactive form */}
           <HomeForm />
 
-          {/* Middle Ad */}
-          {/* <div className="max-w-3xl mx-auto mt-12 md:mt-14 mb-6">
-            <div
-              className="ad-slot h-20 sm:h-24 rounded-xl"
-              aria-label="Advertisement space"
-            >
-              <span>Advertisement</span>
-            </div>
-          </div> */}
-
           {/* How It Works Section */}
           <section className="max-w-4xl mx-auto mt-10 md:mt-12 text-center" aria-labelledby="how-it-works-heading">
             <h2
               id="how-it-works-heading"
               className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-10 text-yellow-300"
             >
-              How It Works
+              How to Send a Birthday Wish 🎂
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
               {[
@@ -203,13 +230,13 @@ export default function HomePage() {
                   step: '02',
                   icon: '🔗',
                   title: 'Get QR + Link',
-                  desc: 'We generate a unique page with QR code and shareable link instantly',
+                  desc: 'We generate a unique wish page with QR code and shareable link instantly',
                 },
                 {
                   step: '03',
                   icon: '🎊',
                   title: 'Share & Celebrate',
-                  desc: 'Send via WhatsApp or share the link. They open it to a beautiful surprise!',
+                  desc: 'Send via WhatsApp or share the link. They open it to a beautiful birthday surprise!',
                 },
               ].map(({ step, icon, title, desc }) => (
                 <div
@@ -241,7 +268,7 @@ export default function HomePage() {
                 id="blog-heading"
                 className="text-2xl sm:text-3xl font-bold text-yellow-300 text-center sm:text-left"
               >
-                📖 Birthday QR Blog: Ideas & Guides
+                📖 Birthday Wish Ideas & Guides
               </h2>
               <Link
                 href="/blog"
@@ -296,7 +323,7 @@ export default function HomePage() {
                 href="/blog"
                 className="inline-block text-sm px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-yellow-400 transition-colors"
               >
-                🎂 Explore all birthday surprise ideas ({totalBlogPosts}+ articles)
+                🎂 Explore all birthday wish ideas ({totalBlogPosts}+ articles)
               </Link>
             </div>
           </section>
@@ -336,31 +363,19 @@ export default function HomePage() {
           {/* Footer */}
           <footer className="max-w-4xl mx-auto mt-16 md:mt-20 pt-6 pb-4 text-center border-t border-white/10">
             <p className="text-xs text-gray-500">
-              © {new Date().getFullYear()} Birthday QR Surprise · Made with ❤️ · Free Birthday Wish Generator
+              © {new Date().getFullYear()} Birthday QR Surprise · Made with ❤️ · Free Happy Birthday Wish Generator
             </p>
             <nav className="flex flex-wrap justify-center gap-4 mt-3" aria-label="Footer navigation">
-              <Link
-                href="/privacy"
-                className="text-xs text-gray-400 hover:text-yellow-400 transition-colors"
-              >
+              <Link href="/privacy" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
                 Privacy Policy
               </Link>
-              <Link
-                href="/terms"
-                className="text-xs text-gray-400 hover:text-yellow-400 transition-colors"
-              >
+              <Link href="/terms" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
                 Terms of Service
               </Link>
-              <Link
-                href="/contact"
-                className="text-xs text-gray-400 hover:text-yellow-400 transition-colors"
-              >
+              <Link href="/contact" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
                 Contact
               </Link>
-              <Link
-                href="/about"
-                className="text-xs text-gray-400 hover:text-yellow-400 transition-colors"
-              >
+              <Link href="/about" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
                 About Us
               </Link>
             </nav>

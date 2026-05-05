@@ -13,15 +13,41 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://wishqr.in'),
-  title: 'Birthday QR Surprise 🎉 - Create Personalized Birthday Wishes',
+  title: 'Happy Birthday Wishes & QR Surprise 🎉 - Personalized Birthday Messages',
   description:
-    'Create a beautiful, personalized birthday surprise with a QR code! Share a magical birthday wish page with animations, confetti, and heartfelt messages. Free birthday wish generator.',
+    'Send beautiful happy birthday wishes for friend, sister, brother, wife, husband & love with a magic QR code! Create animated birthday wish pages with confetti, images & heartfelt quotes — free birthday wish generator.',
   keywords: [
+    // Core — >1M volume
+    'happy birthday wishes',
+    'happy birthday',
+    // Relationship — >100K / >10K
+    'happy birthday wishes for friend',
+    'happy birthday wishes for sister',
+    'happy birthday sister',
+    'happy birthday wishes for brother',
+    'happy birthday wishes for best friend',
+    'happy birthday wishes for wife',
+    'happy birthday wishes for husband',
+    'happy birthday wishes for love',
+    'happy birthday my love',
+    'wish you happy birthday',
+    // Language variants — >10K
+    'happy birthday wishes in marathi',
+    'happy birthday wishes in hindi',
+    'happy birthday wishes in english',
+    // Content type — >10K
+    'happy birthday images',
+    'happy birthday quotes',
+    'happy birthday png',
+    'happy birthday song',
+    // QR / product-specific
+    'happy birthday qr code generator free',
     'birthday wishes qr code free',
     'birthday wishes qr code free with name',
-    'happy birthday qr code generator free',
     'birthday wishes qr code free with name age and message',
     'birthday wishes qr',
+    'special happy birthday wishes',
+    // Descriptive / long-tail
     'birthday wish generator',
     'birthday QR code',
     'personalized birthday message',
@@ -43,22 +69,23 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://wishqr.in',
     siteName: 'Birthday QR Surprise',
-    title: 'Birthday QR Surprise 🎉 - Create Personalized Birthday Wishes',
+    title: 'Happy Birthday Wishes & QR Surprise 🎉 - Personalized Birthday Messages',
     description:
-      'Create a beautiful birthday QR code surprise! Share magical animated birthday wishes with friends & family.',
+      'Send happy birthday wishes for friend, sister, brother or love with a magic QR code! Animated pages, confetti & heartfelt messages — free & instant.',
     images: [
       {
         url: 'https://wishqr.in/icons/android-chrome-192x192.png',
         width: 512,
         height: 512,
-        alt: 'Birthday QR Surprise',
+        alt: 'Birthday QR Surprise – Personalized Happy Birthday Wishes',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Birthday QR Surprise 🎉',
-    description: 'Create personalized birthday QR codes with beautiful animated wish pages!',
+    title: 'Happy Birthday Wishes & QR Surprise 🎉',
+    description:
+      'Create personalized happy birthday wishes for friend, sister, brother, wife or husband — with a free animated QR wish page!',
     images: ['https://wishqr.in/icons/android-chrome-192x192.png'],
   },
   manifest: '/manifest.json',
@@ -93,7 +120,8 @@ export default function RootLayout({
               '@type': 'WebApplication',
               name: 'Birthday QR Surprise',
               url: 'https://wishqr.in',
-              description: 'Create personalized birthday wish pages with QR codes',
+              description:
+                'Create personalized happy birthday wishes for friend, sister, brother, wife, husband or love — with animated QR wish pages.',
               applicationCategory: 'EntertainmentApplication',
               operatingSystem: 'Any',
               aggregateRating: {
