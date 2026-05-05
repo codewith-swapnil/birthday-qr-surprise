@@ -96,6 +96,11 @@ export default function RootLayout({
               description: 'Create personalized birthday wish pages with QR codes',
               applicationCategory: 'EntertainmentApplication',
               operatingSystem: 'Any',
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: '4.8',
+                ratingCount: '120',
+              },
               offers: {
                 '@type': 'Offer',
                 price: '0',

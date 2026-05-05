@@ -58,7 +58,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     description: content.description,
     datePublished: content.publishDate,
     dateModified: content.publishDate,
-    author: { '@type': 'Organization', name: 'Birthday QR Surprise' },
+    author: { '@type': 'Organization', name: 'Birthday QR Surprise', url: 'https://wishqr.in/about', },
     publisher: {
       '@type': 'Organization',
       name: 'Birthday QR Surprise',
