@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'About Us | Birthday QR Surprise',
-  description: 'Learn about Birthday QR Surprise – our mission, the team, and why we built a free birthday wish generator with QR codes.',
+  title: 'About Us | WishQR',
+  description: 'Learn about WishQR – our mission, the team, and why we built a free birthday wish generator with QR codes.',
 };
 
 export default function AboutPage() {
@@ -25,7 +25,7 @@ export default function AboutPage() {
           <div className="text-center mb-6">
             <div className="text-5xl mb-3">🎂✨</div>
             <h1 className="text-3xl md:text-4xl font-black" style={{ fontFamily: 'var(--font-display)', color: '#fde68a' }}>
-              About Birthday QR Surprise
+              About WishQR
             </h1>
           </div>
 
@@ -33,7 +33,7 @@ export default function AboutPage() {
             <p>
               We believe that <strong className="text-yellow-300">birthdays deserve magic</strong>. 
               Not just a “Happy Birthday” text, but a moment of genuine surprise and delight. 
-              That’s why we built Birthday QR Surprise – a free, instant, and beautiful way to turn 
+              That’s why we built WishQR – a free, instant, and beautiful way to turn 
               your words into an animated, shareable birthday page.
             </p>
 
@@ -53,7 +53,7 @@ export default function AboutPage() {
 
             <h2 className="text-xl font-semibold pt-2" style={{ color: '#fde68a' }}>Built with ❤️ by a Small Team</h2>
             <p>
-              Birthday QR Surprise is developed and maintained by a small, passionate group of 
+              WishQR is developed and maintained by a small, passionate group of 
               developers and designers who love birthdays and clean code. We are based in India 
               and serve users worldwide.
             </p>
@@ -74,7 +74,7 @@ export default function AboutPage() {
 
         <footer className="mt-12 text-center pb-6">
           <p className="text-xs" style={{ color: 'rgba(248,244,255,0.2)' }}>
-            © {new Date().getFullYear()} Birthday QR Surprise · All rights reserved
+            © {new Date().getFullYear()} WishQR · All rights reserved
           </p>
         </footer>
       </div>

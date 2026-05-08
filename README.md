@@ -1,8 +1,8 @@
-# 🎉 Birthday QR Surprise
+# 🎉 WishQR
 
 > A viral-ready birthday wish generator with QR codes, confetti, balloons, and stunning animations.
 
-![Birthday QR Surprise](public/icons/android-chrome-192x192.png)
+![WishQR](public/icons/android-chrome-192x192.png)
 
 ## ✨ Features
 
@@ -231,5 +231,5 @@ MIT — free to use and modify.
 
 ---
 
-**Made with ❤️ | Birthday QR Surprise**
+**Made with ❤️ | WishQR**
 # birthday-qr-surprise

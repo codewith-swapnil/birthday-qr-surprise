@@ -58,18 +58,15 @@ export const metadata: Metadata = {
     'birthday card QR',
     'digital birthday card',
   ],
-  verification: {
-    google: '0943dc92510d531f',
-  },
-  authors: [{ name: 'Birthday QR Surprise' }],
-  creator: 'Birthday QR Surprise',
-  publisher: 'Birthday QR Surprise',
+  authors: [{ name: 'WishQR' }],
+  creator: 'WishQR',
+  publisher: 'WishQR',
   robots: 'index, follow',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://wishqr.in',
-    siteName: 'Birthday QR Surprise',
+    siteName: 'WishQR',
     title: 'Happy Birthday Wishes & QR Surprise 🎉 - Personalized Birthday Messages',
     description:
       'Send happy birthday wishes for friend, sister, brother or love with a magic QR code! Animated pages, confetti & heartfelt messages — free & instant.',
@@ -78,7 +75,7 @@ export const metadata: Metadata = {
         url: 'https://wishqr.in/icons/android-chrome-192x192.png',
         width: 512,
         height: 512,
-        alt: 'Birthday QR Surprise – Personalized Happy Birthday Wishes',
+        alt: 'WishQR – Personalized Happy Birthday Wishes',
       },
     ],
   },
@@ -119,7 +116,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebApplication',
-              name: 'Birthday QR Surprise',
+              name: 'WishQR',
               url: 'https://wishqr.in',
               description:
                 'Create personalized happy birthday wishes for friend, sister, brother, wife, husband or love — with animated QR wish pages.',
@@ -144,7 +141,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              name: 'Birthday QR Surprise',
+              name: 'WishQR',
               url: 'https://wishqr.in',
               logo: 'https://wishqr.in/icons/android-chrome-192x192.png',
             }),

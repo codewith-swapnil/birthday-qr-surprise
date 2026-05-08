@@ -27,7 +27,7 @@ export default function QRDisplay({ wish, onReset }: QRDisplayProps) {
   const { data, url } = wish;
 
   const waMessage = encodeURIComponent(
-    `🎉 *Happy Birthday ${data.name}!* 🎂\n\nI've created a special birthday surprise just for you!\n\nClick here to open your birthday wish 👇\n${url}\n\n💝 Made with Birthday QR Surprise`
+    `🎉 *Happy Birthday ${data.name}!* 🎂\n\nI've created a special birthday surprise just for you!\n\nClick here to open your birthday wish 👇\n${url}\n\n💝 Made with WishQR`
   );
   const waUrl = `https://wa.me/?text=${waMessage}`;
 

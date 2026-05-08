@@ -58,10 +58,10 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     description: content.description,
     datePublished: content.publishDate,
     dateModified: content.publishDate,
-    author: { '@type': 'Organization', name: 'Birthday QR Surprise', url: 'https://wishqr.in/about', },
+    author: { '@type': 'Organization', name: 'WishQR', url: 'https://wishqr.in/about', },
     publisher: {
       '@type': 'Organization',
-      name: 'Birthday QR Surprise',
+      name: 'WishQR',
       url: 'https://wishqr.in',
     },
     mainEntityOfPage: url,
@@ -324,7 +324,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         {/* Footer */}
         <footer className="mt-10 text-center pb-6">
           <p className="text-xs" style={{ color: 'rgba(248,244,255,0.2)' }}>
-            © {new Date().getFullYear()} Birthday QR Surprise · Made with ❤️
+            © {new Date().getFullYear()} WishQR · Made with ❤️
           </p>
         </footer>
       </div>

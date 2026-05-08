@@ -359,7 +359,7 @@ export function generateBlogContent(slug: string): BlogContent {
   // ── FAQs ──
   const faqs: { q: string; a: string }[] = [
     {
-      q: `Is this birthday QR surprise tool really free?`,
+      q: `Is this WishQR tool really free?`,
       a: `Yes — 100% free. No account, no credit card, no hidden charges. Generate as many birthday pages as you like.`,
     },
     {

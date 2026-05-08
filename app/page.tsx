@@ -65,13 +65,13 @@ export const metadata: Metadata = {
     description:
       'Send a magical happy birthday wish for friend, sister, brother, wife, husband, gf or bf — animated page + QR code, free & instant!',
     url: 'https://wishqr.in',
-    siteName: 'Birthday QR Surprise',
+    siteName: 'WishQR',
     images: [
       {
         url: 'https://wishqr.in/icons/android-chrome-512x512.png',
         width: 512,
         height: 512,
-        alt: 'Happy Birthday Wish Generator – Birthday QR Surprise',
+        alt: 'Happy Birthday Wish Generator – WishQR',
       },
     ],
     type: 'website',
@@ -363,7 +363,7 @@ export default function HomePage() {
           {/* Footer */}
           <footer className="max-w-4xl mx-auto mt-16 md:mt-20 pt-6 pb-4 text-center border-t border-white/10">
             <p className="text-xs text-gray-500">
-              © {new Date().getFullYear()} Birthday QR Surprise · Made with ❤️ · Free Happy Birthday Wish Generator
+              © {new Date().getFullYear()} WishQR · Made with ❤️ · Free Happy Birthday Wish Generator
             </p>
             <nav className="flex flex-wrap justify-center gap-4 mt-3" aria-label="Footer navigation">
               <Link href="/privacy" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">

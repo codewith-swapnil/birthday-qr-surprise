@@ -1,6 +1,6 @@
 {
-  "name": "Birthday QR Surprise",
-  "short_name": "BirthdayQR",
+  "name": "WishQR",
+  "short_name": "WishQR",
   "description": "Create personalized birthday wish pages with QR codes",
   "start_url": "/",
   "display": "standalone",

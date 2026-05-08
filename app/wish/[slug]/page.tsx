@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: 'Birthday Wish 🎉 | Birthday QR Surprise',
+      title: 'Birthday Wish 🎉 | WishQR',
       description: 'Open this link to see a special birthday wish!',
     };
   }
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : [{ url: '/og-birthday.png', width: 1200, height: 630 }];
 
   return {
-    title: `Happy Birthday ${data.name}! 🎉 | Birthday QR Surprise`,
+    title: `Happy Birthday ${data.name}! 🎉 | WishQR`,
     description: `Celebrate ${data.name}'s birthday on ${bdDisplay}! ${data.message.substring(0, 100)}${data.message.length > 100 ? '…' : ''}`,
     keywords: [
       `happy birthday ${data.name}`,
@@ -80,7 +80,7 @@ export default async function WishPage({ params }: PageProps) {
       name: `${data.name}'s Birthday`,
       description: data.message,
       eventStatus: 'https://schema.org/EventScheduled',
-      organizer: { '@type': 'Person', name: 'Birthday QR Surprise' },
+      organizer: { '@type': 'Person', name: 'WishQR' },
     }
     : null;
 

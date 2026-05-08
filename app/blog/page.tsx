@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FEATURED_SLUGS, generateBlogContent, getAllSlugs } from '@/lib/blogData';
 
 export const metadata: Metadata = {
-  title: 'Birthday QR Blog – Ideas, Guides & Surprises | Birthday QR Surprise',
+  title: 'Birthday QR Blog – Ideas, Guides & Surprises | WishQR',
   description:
     'Explore birthday QR code ideas for girlfriend, boyfriend, mom, dad, friends & more. Step-by-step guides, message templates & creative surprises. 100% free.',
   alternates: {
@@ -198,7 +198,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         {/* Footer */}
         <footer className="mt-16 text-center pb-6">
           <p className="text-xs" style={{ color: 'rgba(248,244,255,0.2)' }}>
-            © {new Date().getFullYear()} Birthday QR Surprise · All rights reserved
+            © {new Date().getFullYear()} WishQR · All rights reserved
           </p>
         </footer>
       </div>
