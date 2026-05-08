@@ -66,10 +66,7 @@ export default function ContactPage() {
           >
             Contact Us
           </h1>
-          <p
-            className="text-sm md:text-base"
-            style={{ color: 'rgba(248,244,255,0.6)' }}
-          >
+          <p className="text-sm md:text-base" style={{ color: 'rgba(248,244,255,0.6)' }}>
             Whether you have a question, found a bug, or just want to say hi — we&apos;re here.
             Choose the right inbox below for the fastest response.
           </p>
@@ -84,10 +81,7 @@ export default function ContactPage() {
             >
               <span className="text-3xl mt-0.5">{c.icon}</span>
               <div className="flex-1 min-w-0">
-                <h2
-                  className="font-semibold text-base mb-0.5"
-                  style={{ color: '#fde68a' }}
-                >
+                <h2 className="font-semibold text-base mb-0.5" style={{ color: '#fde68a' }}>
                   {c.title}
                 </h2>
                 <p
@@ -103,34 +97,58 @@ export default function ContactPage() {
                 >
                   {c.value}
                 </a>
-                <p
-                  className="text-xs mt-1.5"
-                  style={{ color: 'rgba(248,244,255,0.3)' }}
-                >
+                <p className="text-xs mt-1.5" style={{ color: 'rgba(248,244,255,0.3)' }}>
                   {c.note}
                 </p>
               </div>
             </div>
           ))}
+
+          {/* ── Physical Address Card ── */}
+          <div className="glass rounded-2xl p-6 flex items-start gap-4">
+            <span className="text-3xl mt-0.5">📍</span>
+            <div className="flex-1 min-w-0">
+              <h2 className="font-semibold text-base mb-0.5" style={{ color: '#fde68a' }}>
+                Our Address
+              </h2>
+              <p
+                className="text-xs mb-3 leading-relaxed"
+                style={{ color: 'rgba(248,244,255,0.45)' }}
+              >
+                For official correspondence and legal notices only.
+              </p>
+              <address
+                className="not-italic text-sm leading-7"
+                style={{ color: 'rgba(248,244,255,0.72)' }}
+              >
+                <span className="font-semibold" style={{ color: '#fde68a' }}>WishQR</span>
+                <br />
+                L Sector, Ram Nagar, N 2
+                <br />
+                CIDCO, Chhatrapati Sambhajinagar
+                <br />
+                Maharashtra – 431006
+                <br />
+                India
+              </address>
+            </div>
+          </div>
         </div>
 
         {/* Legal Note */}
         <div
           className="glass rounded-2xl p-5 mt-6 text-sm leading-relaxed"
-          style={{ color: 'rgba(248,244,255,0.45)', borderColor: 'rgba(253,230,138,0.1)' }}
+          style={{ color: 'rgba(248,244,255,0.45)' }}
         >
           <span className="text-base mr-2">⚖️</span>
-          For data deletion or access requests under applicable privacy laws (GDPR, India IT Act),
-          please email{' '}
-          <a
-            href="mailto:support@wishqr.in"
-            className="underline"
-            style={{ color: '#fde68a' }}
-          >
+          For data deletion or access requests under applicable privacy laws (GDPR, India IT
+          Act), please email{' '}
+          <a href="mailto:support@wishqr.in" className="underline" style={{ color: '#fde68a' }}>
             support@wishqr.in
           </a>{' '}
           with the subject line <em>&quot;Data Request&quot;</em>. Include your page link if
-          applicable. We process all requests within <strong style={{ color: 'rgba(248,244,255,0.7)' }}>7 business days</strong>.
+          applicable. We process all requests within{' '}
+          <strong style={{ color: 'rgba(248,244,255,0.7)' }}>7 business days</strong>.
         </div>
 
         {/* Privacy Policy Link */}
