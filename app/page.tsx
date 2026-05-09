@@ -76,13 +76,13 @@ export const metadata: Metadata = {
     ],
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Happy Birthday Wish Generator 🎉 – Free & Animated',
-    description:
-      'Create a personalized happy birthday wish for friend, sister, brother, wife or husband — with a free animated QR wish page!',
-    images: ['https://wishqr.in/icons/android-chrome-512x512.png'],
-  },
+  // twitter: {
+  //   card: 'summary_large_image',
+  //   title: 'Happy Birthday Wish Generator 🎉 – Free & Animated',
+  //   description:
+  //     'Create a personalized happy birthday wish for friend, sister, brother, wife or husband — with a free animated QR wish page!',
+  //   images: ['https://wishqr.in/icons/android-chrome-512x512.png'],
+  // },
 };
 
 export default function HomePage() {

@@ -72,20 +72,20 @@ export const metadata: Metadata = {
       'Send happy birthday wishes for friend, sister, brother or love with a magic QR code! Animated pages, confetti & heartfelt messages — free & instant.',
     images: [
       {
-        url: 'https://wishqr.in/icons/android-chrome-192x192.png',
+        url: 'https://wishqr.in/icons/android-chrome-512x512.png',
         width: 512,
         height: 512,
-        alt: 'WishQR – Personalized Happy Birthday Wishes',
+        alt: 'Happy Birthday Wish Generator – WishQR',
       },
     ],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Happy Birthday Wishes & QR Surprise 🎉',
-    description:
-      'Create personalized happy birthday wishes for friend, sister, brother, wife or husband — with a free animated QR wish page!',
-    images: ['https://wishqr.in/icons/android-chrome-192x192.png'],
-  },
+  // twitter: {
+  //   card: 'summary_large_image',
+  //   title: 'Happy Birthday Wishes & QR Surprise 🎉',
+  //   description:
+  //     'Create personalized happy birthday wishes for friend, sister, brother, wife or husband — with a free animated QR wish page!',
+  //   images: ['https://wishqr.in/icons/android-chrome-192x192.png'],
+  // },
   manifest: '/manifest.json',
   icons: {
     icon: [
