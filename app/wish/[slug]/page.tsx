@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { formatBirthdayDisplay } from '@/lib/utils';
-import BirthdayWish from '@/components/BirthdayWish';
+import BirthdayWish from '../../BirthdayWish/BirthdayWish';
 import type { WishData } from '@/types/wish';
 import { connectDB } from '@/lib/mongodb';
 import Wish from '@/models/Wish';

@@ -10,6 +10,17 @@
   --gold: #fbbf24;
   --rose-glow: #ff6b9d;
   --midnight: #030014;
+
+  /* ── BirthdayWish design tokens ─────────────────────────────── */
+  --bw-rose: #ff6b9d;
+  --bw-blush: #ffb3cc;
+  --bw-violet: #c084fc;
+  --bw-gold: #fbbf24;
+  --bw-cream: #ffe4b5;
+  --bw-dark: #06000f;
+  --bw-glass: rgba(255, 255, 255, 0.07);
+  --bw-glass-border: rgba(255, 255, 255, 0.14);
+  --bw-shadow: rgba(255, 107, 157, 0.18);
 }
 
 * {
@@ -129,21 +140,38 @@ body {
 .balloon {
   position: absolute;
   border-radius: 50%;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
   animation: floatUp linear infinite;
   pointer-events: none;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(-20vh) rotate(10deg); opacity: 0; }
+  0% {
+    transform: translateY(110vh) rotate(0deg);
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-20vh) rotate(10deg);
+    opacity: 0;
+  }
 }
 
 /* ===== CONFETTI PIECE ===== */
 @keyframes confettiFall {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
 }
 
 /* ===== PULSE RING ===== */
@@ -152,8 +180,15 @@ body {
 }
 
 @keyframes pulseRing {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(1.5); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
 
 /* ===== QR CONTAINER ===== */
@@ -183,16 +218,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.2);
+  color: rgba(255, 255, 255, 0.2);
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 /* ===== SCROLLBAR ===== */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(251, 191, 36, 0.3); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.3);
+  border-radius: 3px;
+}
 
 /* ===== RESPONSIVE HELPERS ===== */
 @media (max-width: 640px) {
@@ -202,24 +246,53 @@ body {
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: var(--opacity, 0.6); transform: scale(1); }
-  50% { opacity: 0.1; transform: scale(0.5); }
+
+  0%,
+  100% {
+    opacity: var(--opacity, 0.6);
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.1;
+    transform: scale(0.5);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
+
 .animate-float {
   animation: float 2s ease-in-out infinite;
 }
