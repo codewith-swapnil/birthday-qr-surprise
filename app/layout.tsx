@@ -149,7 +149,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Script
+        {/* <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18141822593"
           strategy="afterInteractive"
         />
@@ -160,7 +160,7 @@ export default function RootLayout({
             gtag('js', new Date());
             gtag('config', 'AW-18141822593');
           `}
-        </Script>
+        </Script> */}
         <ServiceWorkerRegistration />
         {children}
         <Analytics />
