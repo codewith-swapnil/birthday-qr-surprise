@@ -14,9 +14,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://wishqr.in'),
-  title: 'Happy Birthday Wishes & QR Surprise 🎉 - Personalized Birthday Messages',
-  description:
-    'Send beautiful happy birthday wishes for friend, sister, brother, wife, husband & love with a magic QR code! Create animated birthday wish pages with confetti, images & heartfelt quotes — free birthday wish generator.',
+  title: 'Birthday QR Code Generator Free 🎉 — Happy Birthday Wish Pages | WishQR',
+  description: 'Create a free birthday QR code with a personalized animated wish page — confetti, images & heartfelt messages. Share with friends, family & loved ones instantly.',
   keywords: [
     // Core — >1M volume
     'happy birthday wishes',
@@ -58,6 +57,10 @@ export const metadata: Metadata = {
     'birthday card QR',
     'digital birthday card',
   ],
+  alternates: {
+    canonical: 'https://wishqr.in',
+  },
+  category: 'technology',
   authors: [{ name: 'WishQR' }],
   creator: 'WishQR',
   publisher: 'WishQR',
@@ -67,25 +70,25 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://wishqr.in',
     siteName: 'WishQR',
-    title: 'Happy Birthday Wishes & QR Surprise 🎉 - Personalized Birthday Messages',
+    title: 'Birthday QR Code Generator Free 🎉 — Happy Birthday Wish Pages | WishQR',
     description:
       'Send happy birthday wishes for friend, sister, brother or love with a magic QR code! Animated pages, confetti & heartfelt messages — free & instant.',
     images: [
       {
-        url: 'https://wishqr.in/icons/android-chrome-512x512.png',
-        width: 512,
-        height: 512,
-        alt: 'Happy Birthday Wish Generator – WishQR',
+        url: 'https://wishqr.in/og-image.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Free Birthday QR Code Generator — WishQR',
       },
     ],
   },
-  // twitter: {
-  //   card: 'summary_large_image',
-  //   title: 'Happy Birthday Wishes & QR Surprise 🎉',
-  //   description:
-  //     'Create personalized happy birthday wishes for friend, sister, brother, wife or husband — with a free animated QR wish page!',
-  //   images: ['https://wishqr.in/icons/android-chrome-192x192.png'],
-  // },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Happy Birthday Wishes & QR Surprise 🎉',
+    description:
+      'Create personalized happy birthday wishes for friend, sister, brother, wife or husband — with a free animated QR wish page!',
+    images: ['https://wishqr.in/icons/android-chrome-192x192.png'],
+  },
   manifest: '/manifest.json',
   icons: {
     icon: [
