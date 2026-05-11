@@ -6,97 +6,161 @@ import { FEATURED_SLUGS, generateBlogContent, getAllSlugs } from '@/lib/blogData
 
 const StarField = dynamic(() => import('@/components/StarField'), { ssr: false });
 
+// ─── Metadata ────────────────────────────────────────────────────────────────
+// Page-level metadata inherits metadataBase & icons from layout.
+// Keep title/description/OG distinct from layout defaults.
 export const metadata: Metadata = {
-  title: 'Happy Birthday Wish Generator 🎉 – Free Personalized Birthday QR Code',
+  title: 'Birthday QR Code Generator Free 🎉 — Happy Birthday Wish Pages | WishQR',
   description:
-    'Send the perfect happy birthday wish for friend, sister, brother, wife, husband, girlfriend, boyfriend or love — free! Create an animated wish page with confetti & QR code. Share instantly via WhatsApp. Happy birthday wish kaise kare? We make it easy!',
-  keywords: [
-    // "wish" singular cluster — new batch
-    'happy birthday wish',
-    'happy birthday wish for friend',
-    'happy birthday wish friend',
-    'happy birthday wish for sister',
-    'happy birthday wish sister',
-    'happy birthday wish for brother',
-    'happy birthday wish for best friend',
-    'happy birthday wish for wife',
-    'happy birthday wish for husband',
-    'happy birthday wish for love',
-    'happy birthday wish for gf',
-    'happy birthday wish for bf',
-    'happy birthday wish for girlfriend',
-    'happy birthday wish for son',
-    'happy birthday wish in english',
-    'happy birthday wish kaise kare',
-    'happy birthday wish kaise kare in english',
-    'happy birthday wish kaise karen',
-    'happy birthday wish in marathi',
-    'happy birthday wish in hindi',
-    // "wishes" plural cluster — carried over from layout
-    'happy birthday wishes',
-    'happy birthday wishes for friend',
-    'happy birthday wishes for sister',
-    'happy birthday wishes for brother',
-    'happy birthday wishes for best friend',
-    'happy birthday wishes for wife',
-    'happy birthday wishes for husband',
-    'happy birthday wishes for love',
-    'happy birthday my love',
-    'wish you happy birthday',
-    'happy birthday wishes in marathi',
-    'happy birthday wishes in hindi',
-    'happy birthday wishes in english',
-    'happy birthday images',
-    'happy birthday quotes',
-    // Product / QR-specific
-    'happy birthday qr code generator free',
-    'birthday wishes qr code free',
-    'birthday wish generator',
-    'birthday QR code',
-    'personalized birthday message',
-    'birthday surprise',
-    'digital birthday card',
-  ],
+    'Create a free birthday QR code with a personalized animated wish page — confetti, images & heartfelt messages. Perfect birthday wish for friend, sister, brother, wife, husband or love. Share instantly via WhatsApp.',
   alternates: {
     canonical: 'https://wishqr.in',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
-    title: 'Happy Birthday Wish Generator 🎉 – Free Personalized QR Code',
+    title: 'Birthday QR Code Generator Free 🎉 — Happy Birthday Wish Pages | WishQR',
     description:
-      'Send a magical happy birthday wish for friend, sister, brother, wife, husband, gf or bf — animated page + QR code, free & instant!',
+      'Send a magical birthday wish for friend, sister, brother, wife, husband or love — animated page + free QR code, instant!',
     url: 'https://wishqr.in',
     siteName: 'WishQR',
     images: [
       {
-        url: 'https://wishqr.in/icons/android-chrome-512x512.png',
-        width: 512,
-        height: 512,
-        alt: 'Happy Birthday Wish Generator – WishQR',
+        url: 'https://wishqr.in/og-image.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Free Birthday QR Code Generator — WishQR',
       },
     ],
     type: 'website',
   },
-  // twitter: {
-  //   card: 'summary_large_image',
-  //   title: 'Happy Birthday Wish Generator 🎉 – Free & Animated',
-  //   description:
-  //     'Create a personalized happy birthday wish for friend, sister, brother, wife or husband — with a free animated QR wish page!',
-  //   images: ['https://wishqr.in/icons/android-chrome-512x512.png'],
-  // },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Birthday QR Code Generator Free 🎉 — WishQR',
+    description:
+      'Create a personalized birthday wish for friend, sister, brother, wife or husband — animated QR wish page, free!',
+    images: ['https://wishqr.in/og-image.jpeg'],
+  },
 };
 
+// ─── Structured Data ─────────────────────────────────────────────────────────
+// Page-level BreadcrumbList schema — layout handles WebSite, WebApp, Org, FAQ
+const schemaBreadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://wishqr.in',
+    },
+  ],
+};
+
+// ─── Static data ─────────────────────────────────────────────────────────────
+const HOW_IT_WORKS = [
+  {
+    step: '01',
+    icon: '✍️',
+    title: 'Fill the Form',
+    desc: "Enter the birthday person's name, age, and a heartfelt message in seconds.",
+  },
+  {
+    step: '02',
+    icon: '🔗',
+    title: 'Get QR + Link',
+    desc: 'We instantly generate a unique animated wish page with a free QR code and shareable link.',
+  },
+  {
+    step: '03',
+    icon: '🎊',
+    title: 'Share & Celebrate',
+    desc: 'Send via WhatsApp, SMS, or any platform. They open it to a beautiful birthday surprise!',
+  },
+];
+
+const FEATURES = [
+  { icon: '🎊', label: 'Confetti Rain' },
+  { icon: '🎈', label: 'Floating Balloons' },
+  { icon: '✨', label: 'Sparkle Effects' },
+  { icon: '📱', label: 'QR Code' },
+  { icon: '🔗', label: 'Shareable URL' },
+  { icon: '💌', label: 'Custom Message' },
+  { icon: '📲', label: 'WhatsApp Share' },
+  { icon: '🌍', label: 'Works Worldwide' },
+];
+
+// Covers the relationship keywords that were in the keyword meta tag.
+// Keeping them in visible content is what actually drives rankings.
+const FOR_WHOM = [
+  { rel: 'Friend', emoji: '👫' },
+  { rel: 'Sister', emoji: '👩‍👧' },
+  { rel: 'Brother', emoji: '👨‍👦' },
+  { rel: 'Wife', emoji: '💍' },
+  { rel: 'Husband', emoji: '🤵' },
+  { rel: 'Girlfriend', emoji: '💕' },
+  { rel: 'Boyfriend', emoji: '💑' },
+  { rel: 'Best Friend', emoji: '🤝' },
+  { rel: 'Son', emoji: '👦' },
+  { rel: 'Daughter', emoji: '👧' },
+  { rel: 'Mom', emoji: '👩' },
+  { rel: 'Dad', emoji: '👨' },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: 'How do I create a birthday QR code?',
+    a: "Enter the birthday person's name, age, and message above. WishQR instantly generates a personalized animated wish page with a free QR code you can share on WhatsApp or any platform.",
+  },
+  {
+    q: 'Is the birthday QR code generator completely free?',
+    a: 'Yes! WishQR is 100% free. Create unlimited personalized birthday QR codes with animated wish pages — no sign-up required.',
+  },
+  {
+    q: 'Can I add a name, age, and custom message to the birthday QR?',
+    a: "Absolutely. You can fully personalize the wish page with the recipient's name, age, a custom heartfelt message, and choose from animated themes with confetti and balloons.",
+  },
+  {
+    q: 'How do I send a birthday wish on WhatsApp using a QR code?',
+    a: "After creating your wish page on WishQR, tap the WhatsApp share button or copy the link. Paste it in any chat — when they open it, they see a beautiful animated birthday surprise.",
+  },
+  {
+    q: 'Happy birthday wish kaise kare? (How to wish happy birthday?)',
+    a: "WishQR pe jaiye, naam aur message likho, aur ek free animated birthday wish page banaiye — QR code ke saath jo aap WhatsApp par share kar sakte ho.",
+  },
+  {
+    q: 'Can I create birthday wishes in Hindi or Marathi?',
+    a: 'Yes. Simply type your birthday message in Hindi, Marathi, or any language — WishQR supports all languages and character sets.',
+  },
+];
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function HomePage() {
   const featuredPosts = FEATURED_SLUGS.slice(0, 6).map((slug) => ({
     slug,
     ...generateBlogContent(slug),
   }));
-
-  // ✅ Get actual total number of blog posts
   const totalBlogPosts = getAllSlugs().length;
 
   return (
     <>
-      {/* Skip to content link for accessibility */}
+      {/* Breadcrumb schema — page level */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }}
+      />
+
+      {/* Skip link */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-yellow-500 focus:text-black focus:rounded-md"
@@ -116,7 +180,7 @@ export default function HomePage() {
       >
         <StarField />
 
-        {/* Ambient glows - purely decorative */}
+        {/* Decorative glows */}
         <div
           aria-hidden="true"
           style={{
@@ -143,9 +207,9 @@ export default function HomePage() {
         />
 
         <div className="relative z-10 px-4 sm:px-6 py-8 md:py-12 lg:py-16">
-          {/* Header Section */}
+
+          {/* ── Hero ── */}
           <header className="text-center mb-10 md:mb-14">
-            {/* Floating emoji row */}
             <div className="flex justify-center gap-3 mb-4 md:mb-5" aria-hidden="true">
               {['🎉', '🎂', '🎈', '🎁', '✨'].map((emoji, i) => (
                 <span
@@ -161,22 +225,27 @@ export default function HomePage() {
               ))}
             </div>
 
+            {/*
+              H1 — exact match to primary keyword "Birthday QR Code Generator"
+              Secondary keyword "Happy Birthday Wish" appears in sub-copy below.
+              Google weights H1 text heavily; don't split the keyword across lines.
+            */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3 md:mb-4 leading-tight">
-              <span className="gold-text">Happy Birthday Wish</span>
+              <span className="gold-text">Birthday QR Code</span>
               <br />
-              <span className="text-white">Generator</span>{' '}
-              <span
-                aria-hidden="true"
-                className="inline-block animate-float"
-                style={{ animation: 'float 2s ease-in-out infinite' }}
-              >
+              <span className="text-white">Generator Free</span>{' '}
+              <span aria-hidden="true" style={{ animation: 'float 2s ease-in-out infinite', display: 'inline-block' }}>
                 🎉
               </span>
             </h1>
 
-            {/* SEO-rich subtitle naturally incorporating keyword variants */}
+            {/*
+              Subtitle naturally weaves in "happy birthday wish" variants
+              and relationship keywords — visible to Google, reads naturally.
+            */}
             <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-gray-300">
-              Create a beautiful birthday wish for{' '}
+              Send a beautiful{' '}
+              <strong className="text-yellow-400 font-semibold">happy birthday wish</strong> for{' '}
               <span className="text-yellow-400 font-semibold">
                 friend, sister, brother, wife, husband
               </span>{' '}
@@ -184,17 +253,18 @@ export default function HomePage() {
               <span className="text-pink-400 font-semibold">your love</span> — with{' '}
               <span className="text-yellow-400 font-semibold">animations & confetti</span>,
               shared as a{' '}
-              <span className="text-pink-400 font-semibold">QR code</span> or link.
-              <br className="hidden md:block" /> Free, instant, and utterly magical. ✨
+              <span className="text-pink-400 font-semibold">free QR code</span> or link.
+              <br className="hidden md:block" /> No sign-up. Instant. Utterly magical. ✨
             </p>
 
-            {/* Trust badges */}
+            {/* Trust signals */}
             <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-6">
               {[
                 { icon: '⚡', label: 'Instant' },
                 { icon: '🆓', label: '100% Free' },
                 { icon: '📱', label: 'Mobile Ready' },
                 { icon: '🔗', label: 'Shareable Link' },
+                { icon: '🌐', label: 'All Languages' },
               ].map(({ icon, label }) => (
                 <div
                   key={label}
@@ -207,38 +277,60 @@ export default function HomePage() {
             </div>
           </header>
 
-          {/* Interactive form */}
+          {/* ── Form ── */}
           <HomeForm />
 
-          {/* How It Works Section */}
-          <section className="max-w-4xl mx-auto mt-10 md:mt-12 text-center" aria-labelledby="how-it-works-heading">
+          {/* ── For Whom — relationship keyword section ── */}
+          {/*
+            This section exists purely to place relationship keywords in
+            crawlable body text. Each chip is an internal anchor to a
+            future filtered page (/wish/for-friend etc.) — when those
+            pages exist, replace # with real hrefs for silo linking.
+          */}
+          <section
+            className="max-w-3xl mx-auto mt-12 text-center"
+            aria-labelledby="for-whom-heading"
+          >
+            <h2
+              id="for-whom-heading"
+              className="text-xl sm:text-2xl font-bold mb-5 text-yellow-300"
+            >
+              Happy Birthday Wishes For Everyone 🎂
+            </h2>
+            <p className="text-sm text-gray-400 mb-5">
+              Create a personalized birthday QR wish page for any relationship — in seconds.
+            </p>
+            <ul
+              className="flex flex-wrap justify-center gap-2 md:gap-3"
+              aria-label="Birthday wish categories"
+            >
+              {FOR_WHOM.map(({ rel, emoji }) => (
+                <li key={rel}>
+                  <Link
+                    href={`/wish/for-${rel.toLowerCase().replace(' ', '-')}`}
+                    className="flex items-center gap-1.5 text-xs sm:text-sm px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-gray-300 hover:text-yellow-400 hover:border-yellow-500/30 transition-all"
+                  >
+                    <span aria-hidden="true">{emoji}</span>
+                    <span>For {rel}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* ── How It Works ── */}
+          <section
+            className="max-w-4xl mx-auto mt-14 md:mt-16 text-center"
+            aria-labelledby="how-it-works-heading"
+          >
             <h2
               id="how-it-works-heading"
               className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-10 text-yellow-300"
             >
-              How to Send a Birthday Wish 🎂
+              How to Create a Birthday QR Code 🎂
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-              {[
-                {
-                  step: '01',
-                  icon: '✍️',
-                  title: 'Fill the Form',
-                  desc: "Enter the birthday person's name, age, and a heartfelt message",
-                },
-                {
-                  step: '02',
-                  icon: '🔗',
-                  title: 'Get QR + Link',
-                  desc: 'We generate a unique wish page with QR code and shareable link instantly',
-                },
-                {
-                  step: '03',
-                  icon: '🎊',
-                  title: 'Share & Celebrate',
-                  desc: 'Send via WhatsApp or share the link. They open it to a beautiful birthday surprise!',
-                },
-              ].map(({ step, icon, title, desc }) => (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6">
+              {HOW_IT_WORKS.map(({ step, icon, title, desc }) => (
                 <div
                   key={step}
                   className="glass rounded-2xl p-5 md:p-6 relative overflow-hidden text-left sm:text-center"
@@ -261,19 +353,48 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* Featured Blog Section */}
-          <section className="max-w-6xl mx-auto mt-16 md:mt-20" aria-labelledby="blog-heading">
+          {/* ── Features ── */}
+          <section
+            className="max-w-4xl mx-auto mt-14 md:mt-16"
+            aria-labelledby="features-heading"
+          >
+            <h2
+              id="features-heading"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center text-yellow-300"
+            >
+              What&apos;s Included in Every Birthday Wish 🎁
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
+              {FEATURES.map(({ icon, label }) => (
+                <div
+                  key={label}
+                  className="glass rounded-xl p-3 md:p-4 text-center border border-yellow-500/10"
+                >
+                  <div className="text-xl sm:text-2xl mb-1" aria-hidden="true">
+                    {icon}
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-400">{label}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Blog ── */}
+          <section
+            className="max-w-6xl mx-auto mt-16 md:mt-20"
+            aria-labelledby="blog-heading"
+          >
             <div className="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-8 gap-3">
               <h2
                 id="blog-heading"
                 className="text-2xl sm:text-3xl font-bold text-yellow-300 text-center sm:text-left"
               >
-                📖 Birthday Wish Ideas & Guides
+                📖 Birthday Wish Ideas &amp; Guides
               </h2>
               <Link
                 href="/blog"
-                className="text-sm px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/20 transition-all text-center"
-                aria-label="View all blog articles"
+                className="text-sm px-4 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/20 transition-all"
+                aria-label="View all birthday wish articles"
               >
                 View all articles →
               </Link>
@@ -291,9 +412,7 @@ export default function HomePage() {
                     aria-labelledby={`blog-title-${post.slug}`}
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-3xl" aria-hidden="true">
-                        {post.emoji}
-                      </span>
+                      <span className="text-3xl" aria-hidden="true">{post.emoji}</span>
                       <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400">
                         {post.readingTime}
                       </span>
@@ -328,56 +447,69 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* Features Section */}
-          <section className="max-w-4xl mx-auto mt-14 md:mt-16" aria-labelledby="features-heading">
+          {/* ── FAQ ── */}
+          {/*
+            CRITICAL for SEO:
+            - Matches FAQPage schema in layout.tsx → enables Google rich results
+            - Targets long-tail question queries ("how to", "kaise kare", "is it free")
+            - Each answer naturally contains target keywords
+          */}
+          <section
+            className="max-w-3xl mx-auto mt-16 md:mt-20"
+            aria-labelledby="faq-heading"
+          >
             <h2
-              id="features-heading"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center text-yellow-300"
+              id="faq-heading"
+              className="text-2xl sm:text-3xl font-bold mb-8 text-center text-yellow-300"
             >
-              What&apos;s Included 🎁
+              Frequently Asked Questions ❓
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4">
-              {[
-                { icon: '🎊', label: 'Confetti Rain' },
-                { icon: '🎈', label: 'Floating Balloons' },
-                { icon: '✨', label: 'Sparkle Effects' },
-                { icon: '📱', label: 'QR Code' },
-                { icon: '🔗', label: 'Shareable URL' },
-                { icon: '💌', label: 'Custom Message' },
-                { icon: '📲', label: 'WhatsApp Share' },
-                { icon: '🌍', label: 'SEO Optimized' },
-              ].map(({ icon, label }) => (
+            <dl className="space-y-4">
+              {FAQ_ITEMS.map(({ q, a }, i) => (
                 <div
-                  key={label}
-                  className="glass rounded-xl p-3 md:p-4 text-center border border-yellow-500/10"
+                  key={i}
+                  className="glass rounded-2xl p-5 md:p-6 border border-yellow-500/10"
                 >
-                  <div className="text-xl sm:text-2xl mb-1" aria-hidden="true">
-                    {icon}
-                  </div>
-                  <div className="text-xs sm:text-sm text-gray-400">{label}</div>
+                  <dt className="font-semibold text-base md:text-lg text-white mb-2">{q}</dt>
+                  <dd className="text-sm md:text-base text-gray-400 leading-relaxed">{a}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </section>
 
-          {/* Footer */}
+          {/* ── Footer ── */}
           <footer className="max-w-4xl mx-auto mt-16 md:mt-20 pt-6 pb-4 text-center border-t border-white/10">
-            <p className="text-xs text-gray-500">
-              © {new Date().getFullYear()} WishQR · Made with ❤️ · Free Happy Birthday Wish Generator
+            {/*
+              Footer body copy — last chance for keyword placement.
+              Reads naturally; avoids keyword stuffing.
+            */}
+            <p className="text-xs text-gray-500 mb-1">
+              WishQR is the free birthday QR code generator for creating animated happy birthday
+              wish pages — for friend, sister, brother, wife, husband or any loved one.
             </p>
-            <nav className="flex flex-wrap justify-center gap-4 mt-3" aria-label="Footer navigation">
-              <Link href="/privacy" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/contact" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
-                Contact
-              </Link>
-              <Link href="/about" className="text-xs text-gray-400 hover:text-yellow-400 transition-colors">
-                About Us
-              </Link>
+            <p className="text-xs text-gray-600 mb-4">
+              © {new Date().getFullYear()} WishQR · Made with ❤️ in India
+            </p>
+            <nav
+              className="flex flex-wrap justify-center gap-4"
+              aria-label="Footer navigation"
+            >
+              {[
+                { href: '/privacy', label: 'Privacy Policy' },
+                { href: '/terms', label: 'Terms of Service' },
+                { href: '/contact', label: 'Contact' },
+                { href: '/about', label: 'About Us' },
+                { href: '/blog', label: 'Blog' },
+                { href: '/sitemap.xml', label: 'Sitemap' },
+              ].map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-xs text-gray-400 hover:text-yellow-400 transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
             </nav>
           </footer>
         </div>
