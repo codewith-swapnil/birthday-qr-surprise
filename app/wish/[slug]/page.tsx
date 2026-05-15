@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { formatBirthdayDisplay } from '@/lib/utils';
 import BirthdayWish from '@/components/BirthdayWish';
+import ProposeWish from '@/components/ProposeWish';
 import type { WishData } from '@/types/wish';
 import { connectDB } from '@/lib/mongodb';
 import Wish from '@/models/Wish';
@@ -8,10 +9,10 @@ import { cache } from 'react';
 
 interface PageProps {
   params: { slug: string };
-  searchParams: Record<string, never>;   // no query params needed anymore
+  searchParams: Record<string, never>;
 }
 
-/* ── Deduplicated DB fetch (one round-trip per request) ── */
+/* ── Deduplicated DB fetch ── */
 const getWish = cache(async (slug: string): Promise<WishData | null> => {
   try {
     await connectDB();
@@ -30,34 +31,52 @@ const getWish = cache(async (slug: string): Promise<WishData | null> => {
 /* ── Metadata ── */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const data = await getWish(params.slug);
+  const isPropose = data?.topic === 'propose';
 
   if (!data) {
     return {
-      title: 'Birthday Wish 🎉 | WishQR',
-      description: 'Open this link to see a special birthday wish!',
+      title: 'Special Surprise 🎉 | WishQR',
+      description: 'Open this link to see a special surprise!',
     };
   }
 
-  const bdDisplay = formatBirthdayDisplay(data.day, data.month);
+  const bdDisplay = !isPropose ? formatBirthdayDisplay(data.day, data.month) : null;
   const ogImage = data.images?.[0]
     ? [{ url: data.images[0], width: 1200, height: 630 }]
-    : [{ url: '/og-birthday.png', width: 1200, height: 630 }];
+    : [{ url: isPropose ? '/og-propose.png' : '/og-birthday.png', width: 1200, height: 630 }];
+
+  if (isPropose) {
+    return {
+      title: `A Special Message for ${data.name} ❤️ | WishQR`,
+      description: `Someone has a heartfelt message just for ${data.name}. ${data.message.substring(0, 100)}${data.message.length > 100 ? '...' : ''}`,
+      openGraph: {
+        type: 'website',
+        title: `❤️ A Special Message for ${data.name}`,
+        description: data.message.substring(0, 150) || 'Someone wants to say something beautiful.',
+        images: ogImage,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `❤️ For ${data.name}`,
+        description: data.message.substring(0, 200) || 'Open to see a heartfelt surprise.',
+      },
+      robots: 'noindex, nofollow',
+    };
+  }
 
   return {
     title: `Happy Birthday ${data.name}! 🎉 | WishQR`,
-    description: `Celebrate ${data.name}'s birthday on ${bdDisplay}! ${data.message.substring(0, 100)}${data.message.length > 100 ? '…' : ''}`,
+    description: `Celebrate ${data.name}'s birthday on ${bdDisplay}! ${data.message.substring(0, 100)}${data.message.length > 100 ? '...' : ''}`,
     keywords: [
       `happy birthday ${data.name}`,
       `birthday wish ${data.name}`,
       `${bdDisplay} birthday`,
-      'birthday surprise',
-      'birthday message',
-      'birthday celebration',
+      'birthday surprise', 'birthday message', 'birthday celebration',
     ],
     openGraph: {
       type: 'website',
       title: `🎂 Happy Birthday, ${data.name}! 🎉`,
-      description: `${data.message.substring(0, 150)}${data.message.length > 150 ? '…' : ''}`,
+      description: `${data.message.substring(0, 150)}${data.message.length > 150 ? '...' : ''}`,
       images: ogImage,
     },
     twitter: {
@@ -71,9 +90,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 /* ── Page ── */
 export default async function WishPage({ params }: PageProps) {
-  const data = await getWish(params.slug);   // cache deduplicates — no second DB hit
+  const data = await getWish(params.slug);
+  const isPropose = data?.topic === 'propose';
 
-  const schemaData = data
+  /* Structured data */
+  const schemaData = data && !isPropose
     ? {
       '@context': 'https://schema.org',
       '@type': 'Event',
@@ -92,7 +113,12 @@ export default async function WishPage({ params }: PageProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
         />
       )}
-      <BirthdayWish rawData={data} slug={params.slug} />
+
+      {/* Route to the correct experience */}
+      {isPropose
+        ? <ProposeWish rawData={data} slug={params.slug} />
+        : <BirthdayWish rawData={data} slug={params.slug} />
+      }
     </>
   );
 }
