@@ -961,10 +961,8 @@ export default function BirthdayWish({ rawData }: BirthdayWishProps) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CSS — mobile-first, every element has explicit @media(max-width:639px)
-//        overrides so nothing ever clips or distorts on small screens.
-//        "Happy Birthday" + name rendered on two separate lines on mobile
-//        with safe, tested px sizes — no vw units at small breakpoints.
+// CSS — MOBILE FONT SIZES FIXED (all other values unchanged)
+// Changes: mobile base font sizes increased for readability
 // ─────────────────────────────────────────────────────────────────────────────
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap');
@@ -1065,14 +1063,15 @@ body {
 }
 .bw-cd-pre {
   font-family:var(--f-cursive);
-  font-size:1.1rem;
+  font-size:1.35rem; /* ✅ was 1.1rem */
   color:#ffe4b5; letter-spacing:.16em; margin-bottom:1rem;
   animation:fadeDown 1.2s ease forwards; opacity:0;
 }
 .bw-cd-name {
   font-family:var(--f-display);
   font-style:italic; font-weight:300;
-  font-size:2.6rem; line-height:1.05;
+  font-size:3.4rem; /* ✅ was 2.6rem */
+  line-height:1.05;
   background:linear-gradient(135deg,#ffb3cc,#fbbf24 38%,#c084fc 68%,#ff6b9d 100%);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   animation:bwNG 3s ease-in-out infinite alternate,fadeDown 1.2s .3s ease forwards;
@@ -1081,7 +1080,8 @@ body {
 }
 .bw-cd-sub {
   font-family:var(--f-display);
-  font-style:italic; font-size:1rem;
+  font-style:italic;
+  font-size:1.18rem; /* ✅ was 1rem */
   color:#ffb3cc; margin:1.2rem 0 2rem;
   animation:fadeDown 1.2s .6s ease forwards; opacity:0;
   padding:0 1rem; line-height:1.8;
@@ -1096,12 +1096,14 @@ body {
 .bw-cd-box::after { content:''; position:absolute; inset:-2px; background:conic-gradient(transparent 270deg,rgba(255,107,157,.28) 360deg); animation:bwSpin 4s linear infinite; z-index:-1; border-radius:inherit; }
 .bw-cd-num {
   font-family:var(--f-display);
-  font-weight:600; font-size:2rem; line-height:1;
+  font-weight:600;
+  font-size:2.6rem; /* ✅ was 2rem */
+  line-height:1;
   background:linear-gradient(180deg,#fff,#fbbf24);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block;
 }
-.bw-cd-lbl { font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; color:#ffb3cc; margin-top:.25rem; font-family:var(--f-body); }
-.bw-cd-badge { margin-top:2rem; padding:.6rem 1.4rem; border:1px solid rgba(255,255,255,.13); border-radius:50px; background:rgba(255,255,255,.06); backdrop-filter:blur(10px); font-family:var(--f-cursive); font-size:1rem; color:#ffe4b5; animation:fadeUp 1.2s 1.2s ease forwards; opacity:0; }
+.bw-cd-lbl { font-size:.78rem; /* ✅ was .65rem */ letter-spacing:.18em; text-transform:uppercase; color:#ffb3cc; margin-top:.25rem; font-family:var(--f-body); }
+.bw-cd-badge { margin-top:2rem; padding:.6rem 1.4rem; border:1px solid rgba(255,255,255,.13); border-radius:50px; background:rgba(255,255,255,.06); backdrop-filter:blur(10px); font-family:var(--f-cursive); font-size:1.15rem; /* ✅ was 1rem */ color:#ffe4b5; animation:fadeUp 1.2s 1.2s ease forwards; opacity:0; }
 
 /* Tablet/desktop countdown upgrades */
 @media(min-width:640px){
@@ -1124,11 +1126,7 @@ body {
 .bw-nr { width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.2); cursor:pointer; border:1px solid rgba(255,255,255,.2); transition:all .3s; padding:0; touch-action:manipulation; }
 .bw-nr.on { background:#ff6b9d; box-shadow:0 0 10px #ff6b9d; transform:scale(1.5); }
 
-/* ══════════════════════════════════════════════════════════════════════
-   HERO — mobile-first, then tablet/desktop upgrades
-   Key fix: "Happy Birthday" and name use FIXED px on mobile so they
-   never clip. vw units are only applied ≥640 px where there's room.
-══════════════════════════════════════════════════════════════════════ */
+/* ── HERO ────────────────────────────────────────────────────────────────── */
 .bw-hero {
   min-height:100vh; display:flex; flex-direction:column;
   align-items:center; justify-content:center; text-align:center;
@@ -1142,61 +1140,55 @@ body {
 .bw-rings span:nth-child(3){width:min(580px,94vw);height:min(580px,94vw);border:1px solid rgba(251,191,36,.065);animation-delay:3s}
 .bw-rings span:nth-child(4){width:min(800px,98vw);height:min(800px,98vw);border:1px solid rgba(255,107,157,.035);animation-delay:4.5s}
 
-/* Eyebrow — mobile: 1rem fixed */
 .bw-eyebrow {
   font-family:var(--f-cursive);
-  font-size:1rem;
+  font-size:1.2rem; /* ✅ was 1rem */
   color:#fbbf24; letter-spacing:.1em;
   animation:fadeDown .9s ease forwards; opacity:0;
   text-shadow:0 0 22px rgba(251,191,36,.65);
   padding:0 .75rem; text-align:center;
-  /* Prevent overflow on very long dates */
   word-break:break-word; max-width:100%;
 }
 
-/* "Happy Birthday" heading — mobile: 2.2rem, safe, never clips */
 .bw-hero-h {
   font-family:var(--f-display);
   font-style:italic; font-weight:300;
-  font-size:2.2rem; line-height:1.05;
+  font-size:2.9rem; /* ✅ was 2.2rem */
+  line-height:1.05;
   background:linear-gradient(135deg,#ff6b9d,#fbbf24 33%,#c084fc 65%,#ff6b9d); background-size:200% auto;
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   animation:shimmer 5s linear infinite,scaleIn 1.2s .2s ease forwards; opacity:0;
   filter:drop-shadow(0 0 40px rgba(255,107,157,.28));
-  /* Critical overflow guards */
   white-space:nowrap;
   overflow:hidden; text-overflow:clip;
   max-width:100%; display:block;
 }
 
-/* Person name — mobile: 1.9rem, Great Vibes is wide so keep it modest */
 .bw-hero-name {
   font-family:var(--f-cursive);
-  font-size:1.9rem; line-height:1.1;
+  font-size:2.7rem; /* ✅ was 1.9rem */
+  line-height:1.1;
   background:linear-gradient(135deg,#fbbf24,#fff 45%,#fbbf24); background-size:200% auto;
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   animation:shimmer 4s linear infinite,scaleIn 1.2s .5s ease forwards; opacity:0;
   filter:drop-shadow(0 0 44px rgba(251,191,36,.55));
   display:block; margin:.1rem 0 .6rem;
-  /* Name can be long — allow wrapping, never clip */
   word-break:break-word; overflow-wrap:break-word;
   padding:0 .5rem; max-width:100%;
   white-space:normal;
 }
 
-/* Hero quote — mobile: .95rem readable but compact */
 .bw-hero-q {
   font-family:var(--f-display);
   font-style:italic; font-weight:300;
-  font-size:.95rem;
+  font-size:1.15rem; /* ✅ was .95rem */
   color:#ffe4b5; animation:fadeUp .9s .8s ease forwards; opacity:0;
   max-width:92vw; line-height:1.85; padding:0 1rem; margin-top:.5rem;
 }
 .bw-scroll-cue { margin-top:1.6rem; display:flex; flex-direction:column; align-items:center; gap:.45rem; animation:fadeUp .9s 1.3s ease forwards; opacity:0; }
-.bw-scroll-cue span { color:#ffb3cc; font-size:.82rem; letter-spacing:.06em; font-family:var(--f-body); }
+.bw-scroll-cue span { color:#ffb3cc; font-size:1rem; /* ✅ was .82rem */ letter-spacing:.06em; font-family:var(--f-body); }
 .bw-scroll-line { width:1px; height:34px; background:linear-gradient(180deg,rgba(255,107,157,.8),transparent); animation:scrollLine 1.8s ease-in-out infinite; will-change:transform,opacity; }
 
-/* ── Tablet hero upgrades (640px+) ── */
 @media(min-width:640px){
   .bw-hero { padding:5rem 1.5rem 4rem; }
   .bw-eyebrow  { font-size:1.45rem; letter-spacing:.14em; }
@@ -1205,7 +1197,6 @@ body {
   .bw-hero-q   { font-size:1.2rem; max-width:520px; }
   .bw-scroll-cue span { font-size:.9rem; }
 }
-/* ── Desktop hero upgrades (1024px+) ── */
 @media(min-width:1024px){
   .bw-hero-h   { font-size:8rem; }
   .bw-hero-name{ font-size:6rem; }
@@ -1218,20 +1209,19 @@ body {
 @media(min-width:640px){ .bw-sw{ padding:4rem 1.5rem; } }
 @media(min-width:1024px){ .bw-sw{ padding:5.5rem 2rem; } }
 
-/* Section eyebrow — mobile: 1rem */
 .bw-eye {
   font-family:var(--f-cursive);
-  font-size:1rem;
+  font-size:1.2rem; /* ✅ was 1rem */
   color:#fbbf24; letter-spacing:.12em; display:block; margin-bottom:.4rem; text-align:center;
 }
 @media(min-width:640px){ .bw-eye{ font-size:1.35rem; } }
 @media(min-width:1024px){ .bw-eye{ font-size:1.55rem; } }
 
-/* Section title — mobile: 1.5rem clear and readable */
 .bw-stl {
   font-family:var(--f-display);
   font-style:italic; font-weight:300;
-  font-size:1.5rem; text-align:center;
+  font-size:1.9rem; /* ✅ was 1.5rem */
+  text-align:center;
   background:linear-gradient(135deg,#fff,#ffb3cc);
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   margin-bottom:1.5rem; line-height:1.25;
@@ -1253,11 +1243,9 @@ body {
 }
 .bw-wcard::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,107,157,.07),transparent 60%); pointer-events:none; }
 .bw-wcard:hover { transform:translateY(-7px) scale(1.01); box-shadow:0 22px 52px rgba(255,107,157,.18); }
-/* Tag label */
-.bw-wlang { font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:#a78bfa; margin-bottom:.7rem; display:block; font-weight:600; font-family:var(--f-body); }
-/* Wish text — mobile: 1rem italic, very readable */
-.bw-wtxt { font-family:var(--f-display); font-style:italic; font-size:1rem; line-height:1.9; color:#f5d0fe; }
-.bw-wem  { font-size:1.6rem; display:block; margin-top:.8rem; }
+.bw-wlang { font-size:.82rem; /* ✅ was .68rem */ letter-spacing:.16em; text-transform:uppercase; color:#a78bfa; margin-bottom:.7rem; display:block; font-weight:600; font-family:var(--f-body); }
+.bw-wtxt { font-family:var(--f-display); font-style:italic; font-size:1.15rem; /* ✅ was 1rem */ line-height:1.9; color:#f5d0fe; }
+.bw-wem  { font-size:2rem; /* ✅ was 1.6rem */ display:block; margin-top:.8rem; }
 @media(min-width:640px){
   .bw-wlang{ font-size:.72rem; }
   .bw-wtxt { font-size:1.1rem; }
@@ -1268,11 +1256,10 @@ body {
 }
 
 /* ── TYPEWRITER ──────────────────────────────────────────────────────────── */
-/* Mobile: 1rem — easy to read on small screen */
 .bw-type {
   font-family:var(--f-display);
   font-style:italic;
-  font-size:1rem;
+  font-size:1.15rem; /* ✅ was 1rem */
   color:#ffb3cc; line-height:1.95; min-height:3.5em;
   background:linear-gradient(135deg,rgba(255,107,157,.06),rgba(192,132,252,.06));
   border:1px solid rgba(255,107,157,.2); border-radius:1.2rem;
@@ -1298,12 +1285,10 @@ body {
   .bw-sp-item:nth-child(even) { flex-direction:row-reverse; text-align:right; }
   .bw-sp-item:nth-child(even):hover { transform:translateX(-6px); }
 }
-/* Icon — mobile: 1.9rem, desktop: 2.8rem */
-.bw-sp-ico { font-size:1.9rem; flex-shrink:0; }
+.bw-sp-ico { font-size:2.3rem; /* ✅ was 1.9rem */ flex-shrink:0; }
 @media(min-width:640px){ .bw-sp-ico{ font-size:2.4rem; } }
 @media(min-width:1024px){ .bw-sp-ico{ font-size:2.9rem; } }
-/* Special text — mobile: 1rem clear */
-.bw-sp-txt { font-family:var(--f-display); font-style:italic; font-size:1rem; color:#ffe4b5; line-height:1.9; }
+.bw-sp-txt { font-family:var(--f-display); font-style:italic; font-size:1.15rem; /* ✅ was 1rem */ color:#ffe4b5; line-height:1.9; }
 @media(min-width:640px){ .bw-sp-txt{ font-size:1.15rem; } }
 @media(min-width:1024px){ .bw-sp-txt{ font-size:1.3rem; } }
 
@@ -1318,10 +1303,10 @@ body {
 @media(min-width:640px){ .bw-emo-card{ padding:2.5rem 2rem; border-radius:2rem; } }
 @media(min-width:1024px){ .bw-emo-card{ padding:3.2rem 2.8rem; } }
 .bw-emo-card::before { content:'❝'; position:absolute; top:-.5rem; left:.8rem; font-size:5.5rem; color:rgba(255,107,157,.07); font-family:var(--f-display); line-height:1; pointer-events:none; user-select:none; }
-/* Message text — mobile: 1rem */
 .bw-emo-p {
   font-family:var(--f-display);
-  font-style:italic; font-size:1rem;
+  font-style:italic;
+  font-size:1.15rem; /* ✅ was 1rem */
   line-height:2.05; color:#ffe4b5; position:relative; z-index:1;
 }
 @media(min-width:640px){ .bw-emo-p{ font-size:1.2rem; } }
@@ -1331,10 +1316,9 @@ body {
 /* ── SURPRISE SECTION ────────────────────────────────────────────────────── */
 .bw-surp-sec { text-align:center; padding:2.5rem 1rem; max-width:600px; margin:0 auto; position:relative; z-index:10; }
 @media(min-width:640px){ .bw-surp-sec{ padding:4rem 1rem; } }
-/* Surprise button — mobile: 1.15rem */
 .bw-surp-btn {
   font-family:var(--f-cursive);
-  font-size:1.15rem;
+  font-size:1.4rem; /* ✅ was 1.15rem */
   padding:.95rem 2.4rem; border:none; border-radius:50px;
   background:linear-gradient(135deg,#ff6b9d,#c084fc,#fbbf24,#ff6b9d); background-size:300% auto;
   color:#fff; cursor:pointer; animation:shimmer 3.5s linear infinite;
@@ -1345,11 +1329,11 @@ body {
 @media(min-width:640px){ .bw-surp-btn{ font-size:1.55rem; padding:1.1rem 3rem; } }
 @media(min-width:1024px){ .bw-surp-btn{ font-size:1.85rem; } }
 .bw-surp-btn:hover { transform:scale(1.07) rotate(-2deg); box-shadow:0 0 66px rgba(255,107,157,.62); }
-/* Surprise message — mobile: 1rem */
 .bw-surp-msg {
   margin:1.4rem auto 0; max-width:520px;
   font-family:var(--f-display);
-  font-style:italic; font-size:1rem;
+  font-style:italic;
+  font-size:1.15rem; /* ✅ was 1rem */
   color:#ffe4b5; line-height:1.95;
   background:linear-gradient(135deg,rgba(255,107,157,.08),rgba(192,132,252,.08));
   border:1px solid rgba(255,255,255,.11); backdrop-filter:blur(10px);
@@ -1372,11 +1356,11 @@ body {
 .bw-f-rings span:nth-child(1){width:min(240px,72vw);height:min(240px,72vw);border:1px solid rgba(255,107,157,.09)}
 .bw-f-rings span:nth-child(2){width:min(460px,88vw);height:min(460px,88vw);border:1px solid rgba(251,191,36,.065);animation-delay:1s}
 
-/* Final title — mobile: 1.8rem, never distorts */
 .bw-f-ttl {
   font-family:var(--f-display);
   font-style:italic; font-weight:300;
-  font-size:1.8rem; line-height:1.15;
+  font-size:2.5rem; /* ✅ was 1.8rem */
+  line-height:1.15;
   background:linear-gradient(135deg,#fff,#fbbf24 45%,#ff6b9d 75%,#fff); background-size:200% auto;
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   animation:shimmer 5s linear infinite;
@@ -1386,30 +1370,27 @@ body {
 @media(min-width:640px){ .bw-f-ttl{ font-size:3.8rem; } }
 @media(min-width:1024px){ .bw-f-ttl{ font-size:5.5rem; } }
 
-/* Final sub — mobile: 1.35rem */
 .bw-f-sub {
   font-family:var(--f-cursive);
-  font-size:1.35rem;
+  font-size:1.75rem; /* ✅ was 1.35rem */
   color:#ff6b9d; margin:.9rem 0 1.5rem; filter:drop-shadow(0 0 12px rgba(255,107,157,.45));
 }
 @media(min-width:640px){ .bw-f-sub{ font-size:2rem; } }
 @media(min-width:1024px){ .bw-f-sub{ font-size:2.6rem; } }
 
-/* Final hearts — mobile: 1.8rem */
-.bw-f-hearts { font-size:1.8rem; animation:heartbeat 1.8s ease-in-out infinite; will-change:transform; }
+.bw-f-hearts { font-size:2.2rem; /* ✅ was 1.8rem */ animation:heartbeat 1.8s ease-in-out infinite; will-change:transform; }
 @media(min-width:640px){ .bw-f-hearts{ font-size:2.4rem; } }
 
-/* Final quote — mobile: .92rem clean */
 .bw-f-quote {
   margin-top:1.5rem;
   font-family:var(--f-display);
-  font-style:italic; font-size:.92rem;
+  font-style:italic;
+  font-size:1.1rem; /* ✅ was .92rem */
   color:#ffe4b5; max-width:88vw; line-height:2; padding:0 1rem;
 }
 @media(min-width:640px){ .bw-f-quote{ font-size:1.1rem; max-width:480px; } }
 @media(min-width:1024px){ .bw-f-quote{ font-size:1.3rem; } }
 
-/* Final icons — mobile: 1.6rem */
-.bw-f-icons { margin-top:2.2rem; font-size:1.6rem; animation:heartbeat 2.2s ease-in-out infinite; will-change:transform; }
+.bw-f-icons { margin-top:2.2rem; font-size:2rem; /* ✅ was 1.6rem */ animation:heartbeat 2.2s ease-in-out infinite; will-change:transform; }
 @media(min-width:640px){ .bw-f-icons{ font-size:2.2rem; } }
 `;

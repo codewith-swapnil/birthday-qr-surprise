@@ -885,7 +885,9 @@ export default function ProposeWish({ rawData }: ProposeWishProps) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CSS
+// CSS — MOBILE FONT SIZES FIXED (clamp minimums increased)
+// Root cause: On 375-390px phones, vw-based preferred values fall below
+// the clamp minimum → minimum is what renders. All minimums updated.
 // ─────────────────────────────────────────────────────────────────────────────
 const PROPOSE_CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap');
@@ -983,7 +985,14 @@ body{
 .pw-rings span:nth-child(2){width:min(430px,84vw);height:min(430px,84vw);border:1px solid rgba(192,132,252,.1);animation-delay:1.5s}
 .pw-rings span:nth-child(3){width:min(640px,94vw);height:min(640px,94vw);border:1px solid rgba(249,168,212,.065);animation-delay:3s}
 .pw-rings span:nth-child(4){width:min(870px,98vw);height:min(870px,98vw);border:1px solid rgba(232,49,90,.035);animation-delay:4.5s}
-.pw-eyebrow{font-family:'Great Vibes',cursive;font-size:clamp(.88rem,3.4vw,1.45rem);color:#fbbf24;letter-spacing:.14em;animation:pFadeDown .9s ease forwards;opacity:0;text-shadow:0 0 22px rgba(251,191,36,.65);padding:0 1rem;text-align:center;}
+
+/* ✅ FIX: clamp MIN 1.1rem (was .88rem — fell below on 375px phones) */
+.pw-eyebrow{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(1.1rem,3.4vw,1.45rem);
+  color:#fbbf24;letter-spacing:.14em;animation:pFadeDown .9s ease forwards;opacity:0;
+  text-shadow:0 0 22px rgba(251,191,36,.65);padding:0 1rem;text-align:center;
+}
 .pw-hero-h{
   font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
   font-size:clamp(2.6rem,10.5vw,8rem);line-height:.95;
@@ -1001,16 +1010,31 @@ body{
   filter:drop-shadow(0 0 52px rgba(251,191,36,.55));display:block;margin:-.2rem 0 .8rem;
   word-break:break-word;padding:0 .5rem;
 }
-.pw-hero-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(.88rem,2.8vw,1.3rem);color:#ffd6e7;animation:pFadeUp .9s .8s ease forwards;opacity:0;max-width:480px;line-height:1.9;padding:0 1.2rem;margin-top:.5rem;}
+
+/* ✅ FIX: 1.1rem (was .88rem) */
+.pw-hero-q{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1.1rem,2.8vw,1.3rem);
+  color:#ffd6e7;animation:pFadeUp .9s .8s ease forwards;opacity:0;
+  max-width:480px;line-height:1.9;padding:0 1.2rem;margin-top:.5rem;
+}
+
 .pw-scroll-cue{margin-top:2rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:pFadeUp .9s 1.3s ease forwards;opacity:0;}
-.pw-scroll-cue span{color:#f9a8d4;font-size:clamp(.72rem,2.4vw,.88rem);letter-spacing:.06em;}
+/* ✅ FIX: .95rem (was .72rem — way too small) */
+.pw-scroll-cue span{color:#f9a8d4;font-size:clamp(.95rem,2.4vw,1rem);letter-spacing:.06em;}
 .pw-scroll-line{width:1px;height:36px;background:linear-gradient(180deg,rgba(232,49,90,.8),transparent);animation:pScrollLine 1.8s ease-in-out infinite;will-change:transform,opacity;}
 
 /* ── SECTIONS ─────────────────────────────────────────────────────────────────── */
 .pw-section{position:relative;z-index:10;}
 .pw-sw{max-width:900px;margin:0 auto;padding:clamp(2.5rem,6.5vw,5rem) 1rem;}
 @media(min-width:640px){.pw-sw{padding:clamp(3rem,7.5vw,6rem) 1.5rem;}}
-.pw-eye{font-family:'Great Vibes',cursive;font-size:clamp(.88rem,2.8vw,1.25rem);color:#fbbf24;letter-spacing:.12em;display:block;margin-bottom:.4rem;text-align:center;}
+
+/* ✅ FIX: 1.1rem (was .88rem) */
+.pw-eye{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(1.1rem,2.8vw,1.25rem);
+  color:#fbbf24;letter-spacing:.12em;display:block;margin-bottom:.4rem;text-align:center;
+}
 .pw-stl{
   font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
   font-size:clamp(1.45rem,4.8vw,2.7rem);text-align:center;
@@ -1020,9 +1044,11 @@ body{
 }
 
 /* ── TYPEWRITER ──────────────────────────────────────────────────────────────── */
+/* ✅ FIX: 1.15rem (was .96rem) */
 .pw-type{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(.96rem,2.8vw,1.35rem);color:#ffd6e7;line-height:1.9;min-height:3.4em;
+  font-size:clamp(1.15rem,2.8vw,1.35rem);
+  color:#ffd6e7;line-height:1.9;min-height:3.4em;
   background:linear-gradient(135deg,rgba(232,49,90,.06),rgba(192,132,252,.06));
   border:1px solid rgba(232,49,90,.2);border-radius:1.2rem;
   padding:1.2rem 1.4rem;margin-bottom:2rem;backdrop-filter:blur(10px);
@@ -1045,7 +1071,12 @@ body{
   .pw-why-item:nth-child(even):hover{transform:translateX(-7px);}
 }
 .pw-why-ico{font-size:clamp(1.7rem,4.2vw,2.5rem);flex-shrink:0;}
-.pw-why-txt{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.88rem,2.4vw,1.08rem);color:#ffd6e7;line-height:1.85;}
+/* ✅ FIX: 1.05rem (was .88rem) */
+.pw-why-txt{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.05rem,2.4vw,1.08rem);
+  color:#ffd6e7;line-height:1.85;
+}
 
 /* ── LOVE LETTER ─────────────────────────────────────────────────────────────── */
 .pw-letter{
@@ -1067,7 +1098,12 @@ body{
   border-radius:inherit;
 }
 .pw-letter::before{content:'❝';position:absolute;top:-.5rem;left:1rem;font-size:6.5rem;color:rgba(232,49,90,.07);font-family:'Cormorant Garamond',serif;line-height:1;pointer-events:none;user-select:none;}
-.pw-letter-p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.96rem,2.4vw,1.18rem);line-height:2.1;color:#ffd6e7;position:relative;z-index:1;}
+/* ✅ FIX: 1.15rem (was .96rem) */
+.pw-letter-p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.15rem,2.4vw,1.18rem);
+  line-height:2.1;color:#ffd6e7;position:relative;z-index:1;
+}
 .pw-letter-p strong{-webkit-text-fill-color:transparent;background:linear-gradient(90deg,#e8315a,#fbbf24);-webkit-background-clip:text;background-clip:text;font-style:normal;}
 
 /* ── PROPOSE SECTION ─────────────────────────────────────────────────────────── */
@@ -1084,26 +1120,30 @@ body{
   will-change:transform;
 }
 .pw-yes-btn:hover{transform:scale(1.08) rotate(-1.5deg);box-shadow:0 0 72px rgba(232,49,90,.65);}
+/* ✅ FIX: 1.05rem (was .9rem) */
 .pw-maybe-btn{
-  font-family:'Quicksand',sans-serif;font-size:.9rem;
+  font-family:'Quicksand',sans-serif;font-size:1.05rem;
   padding:.7rem 2rem;border:1px solid rgba(249,168,212,.3);border-radius:50px;
   background:rgba(249,168,212,.08);color:#f9a8d4;
   cursor:pointer;transition:transform .4s cubic-bezier(.34,1.56,.64,1);
   min-height:44px;touch-action:manipulation;
   position:relative;will-change:transform;
 }
+/* ✅ FIX: 1.2rem (was 1rem) */
 .pw-note-btn{
-  font-family:'Great Vibes',cursive;font-size:clamp(1rem,3.2vw,1.5rem);
+  font-family:'Great Vibes',cursive;font-size:clamp(1.2rem,3.2vw,1.5rem);
   padding:.8rem 2.4rem;border:none;border-radius:50px;
   background:linear-gradient(135deg,#e8315a,#f472b6,#c084fc);
   color:#fff;cursor:pointer;box-shadow:0 0 32px rgba(232,49,90,.35);
   transition:transform .3s,box-shadow .3s;min-height:48px;touch-action:manipulation;
 }
 .pw-note-btn:hover{transform:scale(1.06);box-shadow:0 0 52px rgba(232,49,90,.55);}
+/* ✅ FIX: 1.15rem (was .96rem) */
 .pw-note-msg{
   margin:1.4rem auto 0;max-width:500px;
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(.96rem,2.8vw,1.22rem);color:#ffd6e7;
+  font-size:clamp(1.15rem,2.8vw,1.22rem);
+  color:#ffd6e7;
   background:linear-gradient(135deg,rgba(232,49,90,.08),rgba(192,132,252,.08));
   border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(10px);
   border-radius:1.4rem;padding:1.7rem 1.4rem;
@@ -1132,6 +1172,11 @@ body{
 }
 .pw-f-sub{font-family:'Great Vibes',cursive;font-size:clamp(1.3rem,4.8vw,2.4rem);color:#e8315a;margin:.9rem 0 1.5rem;filter:drop-shadow(0 0 13px rgba(232,49,90,.45));}
 .pw-f-hearts{font-size:clamp(1.7rem,5.2vw,2.6rem);animation:pHeartBeat 1.8s ease-in-out infinite;will-change:transform;}
-.pw-f-quote{margin-top:1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.88rem,2.4vw,1.12rem);color:#ffd6e7;max-width:460px;line-height:2;padding:0 1rem;}
+/* ✅ FIX: 1.08rem (was .88rem) */
+.pw-f-quote{
+  margin-top:1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.08rem,2.4vw,1.12rem);
+  color:#ffd6e7;max-width:460px;line-height:2;padding:0 1rem;
+}
 .pw-f-icons{margin-top:2.4rem;font-size:clamp(1.5rem,4.8vw,2.3rem);animation:pHeartBeat 2.2s ease-in-out infinite;will-change:transform;}
 `;
