@@ -10,17 +10,17 @@ import type { WishData } from '@/types/wish';
 // ─────────────────────────────────────────────────────────────────────────────
 interface ProposeWishProps { rawData: WishData | null; slug: string; }
 type Stage = 'envelope' | 'opening' | 'reveal';
-interface HeartP { x:number;y:number;vx:number;vy:number;c:string;size:number;life:number;decay:number; }
-interface RoseP  { x:number;y:number;sz:number;speed:number;drift:number;rot:number;rv:number;op:number;e:string; }
+interface HeartP { x: number; y: number; vx: number; vy: number; c: string; size: number; life: number; decay: number; }
+interface RoseP { x: number; y: number; sz: number; speed: number; drift: number; rot: number; rv: number; op: number; e: string; }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants
 // ─────────────────────────────────────────────────────────────────────────────
-const HEART_COLS   = ['#e8315a','#f9a8d4','#fb7185','#f472b6','#fbbf24','#fff','#c084fc','#fde68a'];
-const ROSE_EMOJIS  = ['🌹','🌸','💮','🌺','💝','🥀'];
-const NAV_IDS      = ['p-hero','p-why','p-msg','p-propose','p-final'];
-const MAX_HEARTS   = 500;
-const LOVE_NOTES   = [
+const HEART_COLS = ['#e8315a', '#f9a8d4', '#fb7185', '#f472b6', '#fbbf24', '#fff', '#c084fc', '#fde68a'];
+const ROSE_EMOJIS = ['🌹', '🌸', '💮', '🌺', '💝', '🥀'];
+const NAV_IDS = ['p-hero', 'p-why', 'p-msg', 'p-propose', 'p-final'];
+const MAX_HEARTS = 500;
+const LOVE_NOTES = [
   "You have no idea how often you cross my mind. Every. Single. Day. 🌹",
   "The world looks entirely different — better — when I'm with you. 💫",
   "I love you in ways I haven't found words for yet. 💝",
@@ -80,7 +80,7 @@ function RevealSection({ children, delay = 0, style = {} }: {
 // ─────────────────────────────────────────────────────────────────────────────
 function useHeartConfetti(ref: React.RefObject<HTMLCanvasElement>, isMobile: boolean) {
   const parts = useRef<HeartP[]>([]);
-  const raf   = useRef<number | null>(null);
+  const raf = useRef<number | null>(null);
 
   const draw = useCallback(() => {
     const c = ref.current; if (!c) return;
@@ -130,10 +130,10 @@ function useHeartConfetti(ref: React.RefObject<HTMLCanvasElement>, isMobile: boo
     const sc = isMobile ? 0.45 : 1;
     [
       { n: Math.round(220 * sc), x: W * 0.5, y: H * 0.25, t: 0 },
-      { n: Math.round(100 * sc), x: W * 0.1, y: H * 0.4,  t: 200 },
-      { n: Math.round(100 * sc), x: W * 0.9, y: H * 0.4,  t: 400 },
-      { n: Math.round(70  * sc), x: W * 0.25,y: H * 0.15, t: 600 },
-      { n: Math.round(70  * sc), x: W * 0.75,y: H * 0.15, t: 750 },
+      { n: Math.round(100 * sc), x: W * 0.1, y: H * 0.4, t: 200 },
+      { n: Math.round(100 * sc), x: W * 0.9, y: H * 0.4, t: 400 },
+      { n: Math.round(70 * sc), x: W * 0.25, y: H * 0.15, t: 600 },
+      { n: Math.round(70 * sc), x: W * 0.75, y: H * 0.15, t: 750 },
     ].forEach(w => setTimeout(() => spawn(w.n, w.x, w.y), w.t));
   }, [spawn, ref, isMobile]);
 
@@ -158,7 +158,7 @@ function useCanvasLoops(
     const sx = sc.getContext('2d')!;
     const rx = rc.getContext('2d')!;
 
-    type StarL = { x:number;y:number;r:number;o:number;spd:number;tw:number;ts:number; };
+    type StarL = { x: number; y: number; r: number; o: number; spd: number; tw: number; ts: number; };
     type RoseL = RoseP;
     let stars: StarL[] = [], roses: RoseL[] = [];
 
@@ -230,7 +230,7 @@ function useCanvasLoops(
       clearTimeout(resizeTimer);
       cancelAnimationFrame(rafStar); cancelAnimationFrame(rafRose);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 
@@ -238,11 +238,11 @@ function useCanvasLoops(
 // FloatingOrbs — rose/crimson palette
 // ─────────────────────────────────────────────────────────────────────────────
 const ORB_DATA = [
-  { x: 8,  y: 15, size: 340, color: 'rgba(232,49,90,0.06)',   dur: 20, del: 0  },
-  { x: 85, y: 8,  size: 280, color: 'rgba(192,132,252,0.07)', dur: 25, del: 4  },
-  { x: 45, y: 68, size: 420, color: 'rgba(249,168,212,0.04)', dur: 28, del: 7  },
+  { x: 8, y: 15, size: 340, color: 'rgba(232,49,90,0.06)', dur: 20, del: 0 },
+  { x: 85, y: 8, size: 280, color: 'rgba(192,132,252,0.07)', dur: 25, del: 4 },
+  { x: 45, y: 68, size: 420, color: 'rgba(249,168,212,0.04)', dur: 28, del: 7 },
   { x: 15, y: 82, size: 220, color: 'rgba(244,114,182,0.05)', dur: 22, del: 11 },
-  { x: 88, y: 58, size: 300, color: 'rgba(232,49,90,0.06)',   dur: 18, del: 2  },
+  { x: 88, y: 58, size: 300, color: 'rgba(232,49,90,0.06)', dur: 18, del: 2 },
 ];
 function FloatingOrbs() {
   return (
@@ -302,7 +302,7 @@ function PersonAvatar({ src, name, size = 220 }: { src?: string; name: string; s
 function EnvelopeStage({ onOpen, isOpening, personImage, name }: {
   onOpen: () => void; isOpening: boolean; personImage?: string; name: string;
 }) {
-  const [hover, setHover]     = useState(false);
+  const [hover, setHover] = useState(false);
   const [showImg, setShowImg] = useState(false);
   const isMobile = useIsMobile();
 
@@ -513,25 +513,25 @@ function EnvelopeStage({ onOpen, isOpening, personImage, name }: {
 // Main Component
 // ─────────────────────────────────────────────────────────────────────────────
 export default function ProposeWish({ rawData }: ProposeWishProps) {
-  const name        = rawData?.name    ?? 'You';
-  const message     = rawData?.message ?? '';
-  const images      = useMemo(() => (rawData?.images ?? []).slice(0, 8), [rawData]);
+  const name = rawData?.name ?? 'You';
+  const message = rawData?.message ?? '';
+  const images = useMemo(() => (rawData?.images ?? []).slice(0, 8), [rawData]);
   const personImage = images[0] || undefined;
-  const isMobile    = useIsMobile();
+  const isMobile = useIsMobile();
 
-  const [stage, setStage]         = useState<Stage>('envelope');
+  const [stage, setStage] = useState<Stage>('envelope');
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeNav, setActiveNav] = useState(0);
-  const [typeText, setTypeText]   = useState('');
+  const [typeText, setTypeText] = useState('');
   const [typeCursor, setTypeCursor] = useState(true);
-  const [noteIdx, setNoteIdx]     = useState(0);
-  const [showNote, setShowNote]   = useState(false);
+  const [noteIdx, setNoteIdx] = useState(0);
+  const [showNote, setShowNote] = useState(false);
   const [noteCount, setNoteCount] = useState(0);
-  const [saidYes, setSaidYes]     = useState(false);
+  const [saidYes, setSaidYes] = useState(false);
   const maybeRef = useRef<HTMLButtonElement>(null);
 
-  const starCnv  = useRef<HTMLCanvasElement>(null);
-  const roseCnv  = useRef<HTMLCanvasElement>(null);
+  const starCnv = useRef<HTMLCanvasElement>(null);
+  const roseCnv = useRef<HTMLCanvasElement>(null);
   const heartCnv = useRef<HTMLCanvasElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -597,7 +597,7 @@ export default function ProposeWish({ rawData }: ProposeWishProps) {
   // Audio
   useEffect(() => {
     if (stage !== 'reveal') return;
-    audioRef.current?.play().then(() => setIsPlaying(true)).catch(() => {});
+    audioRef.current?.play().then(() => setIsPlaying(true)).catch(() => { });
   }, [stage]);
 
   const handleOpen = useCallback(() => {
@@ -612,9 +612,9 @@ export default function ProposeWish({ rawData }: ProposeWishProps) {
     const sc = isMobile ? 0.5 : 1;
     [
       { n: Math.round(180 * sc), x: W * 0.5, y: H * 0.4, t: 0 },
-      { n: Math.round(90  * sc), x: W * 0.15,y: H * 0.45,t: 200 },
-      { n: Math.round(90  * sc), x: W * 0.85,y: H * 0.45,t: 350 },
-      { n: Math.round(70  * sc), x: W * 0.5, y: H * 0.55,t: 520 },
+      { n: Math.round(90 * sc), x: W * 0.15, y: H * 0.45, t: 200 },
+      { n: Math.round(90 * sc), x: W * 0.85, y: H * 0.45, t: 350 },
+      { n: Math.round(70 * sc), x: W * 0.5, y: H * 0.55, t: 520 },
     ].forEach(w => setTimeout(() => spawn(w.n, w.x, w.y), w.t));
   }, [spawn, isMobile]);
 
@@ -635,7 +635,7 @@ export default function ProposeWish({ rawData }: ProposeWishProps) {
 
   const toggleAudio = () => {
     const a = audioRef.current; if (!a) return;
-    if (a.paused) a.play().then(() => setIsPlaying(true)).catch(() => {});
+    if (a.paused) a.play().then(() => setIsPlaying(true)).catch(() => { });
     else { a.pause(); setIsPlaying(false); }
   };
 
@@ -884,13 +884,8 @@ export default function ProposeWish({ rawData }: ProposeWishProps) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// CSS — MOBILE FONT SIZES FIXED (clamp minimums increased)
-// Root cause: On 375-390px phones, vw-based preferred values fall below
-// the clamp minimum → minimum is what renders. All minimums updated.
-// ─────────────────────────────────────────────────────────────────────────────
 const PROPOSE_CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,400&family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap');
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
@@ -899,6 +894,7 @@ body{
   overflow-x:hidden;min-height:100vh;
   overscroll-behavior:none;
   -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
 }
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#e8315a,#c084fc);border-radius:3px;}
@@ -943,8 +939,7 @@ body{
   backdrop-filter:blur(18px);border-radius:50px;
   padding:.5rem 1rem;z-index:1000;
   box-shadow:0 4px 20px rgba(232,49,90,.22);
-  max-width:calc(100vw - 2rem);
-  touch-action:manipulation;
+  max-width:calc(100vw - 2rem);touch-action:manipulation;
 }
 .pw-bar-lbl{font-family:'Great Vibes',cursive;font-size:.85rem;color:#ffd6e7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;}
 @media(min-width:480px){.pw-bar-lbl{max-width:230px;font-size:.95rem;}}
@@ -960,8 +955,7 @@ body{
   width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;
   background:linear-gradient(135deg,#e8315a,#c084fc);font-size:.9rem;
   display:flex;align-items:center;justify-content:center;color:#fff;
-  box-shadow:0 0 14px rgba(232,49,90,.45);flex-shrink:0;
-  touch-action:manipulation;
+  box-shadow:0 0 14px rgba(232,49,90,.45);flex-shrink:0;touch-action:manipulation;
 }
 
 /* ── BALLOONS ─────────────────────────────────────────────────────────────────── */
@@ -986,13 +980,14 @@ body{
 .pw-rings span:nth-child(3){width:min(640px,94vw);height:min(640px,94vw);border:1px solid rgba(249,168,212,.065);animation-delay:3s}
 .pw-rings span:nth-child(4){width:min(870px,98vw);height:min(870px,98vw);border:1px solid rgba(232,49,90,.035);animation-delay:4.5s}
 
-/* ✅ FIX: clamp MIN 1.1rem (was .88rem — fell below on 375px phones) */
 .pw-eyebrow{
   font-family:'Great Vibes',cursive;
   font-size:clamp(1.1rem,3.4vw,1.45rem);
   color:#fbbf24;letter-spacing:.14em;animation:pFadeDown .9s ease forwards;opacity:0;
   text-shadow:0 0 22px rgba(251,191,36,.65);padding:0 1rem;text-align:center;
 }
+
+/* "For You," heading — Cormorant italic is fine for decorative heading */
 .pw-hero-h{
   font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
   font-size:clamp(2.6rem,10.5vw,8rem);line-height:.95;
@@ -1001,26 +996,32 @@ body{
   animation:pShimmer 5s linear infinite,pScaleIn 1.2s .2s ease forwards;opacity:0;
   filter:drop-shadow(0 0 44px rgba(232,49,90,.28));
 }
+
+/* ── PERSON NAME — Playfair Display, font-weight:700, font-style:normal — */
+/* Replaces 'Great Vibes' which was beautiful but unreadable on mobile     */
 .pw-hero-name{
-  font-family:'Great Vibes',cursive;
-  font-size:clamp(1.85rem,8.5vw,6rem);line-height:1;
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:normal;
+  font-weight:700;
+  font-size:clamp(2rem,8.5vw,6rem);
+  line-height:1.15;
   background:linear-gradient(135deg,#fbbf24,#fff 45%,#fbbf24);background-size:200% auto;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   animation:pShimmer 4s linear infinite,pScaleIn 1.2s .5s ease forwards;opacity:0;
-  filter:drop-shadow(0 0 52px rgba(251,191,36,.55));display:block;margin:-.2rem 0 .8rem;
-  word-break:break-word;padding:0 .5rem;
+  filter:drop-shadow(0 0 52px rgba(251,191,36,.55));
+  display:block;margin:.2rem 0 .8rem;
+  word-break:break-word;overflow-wrap:break-word;
+  padding:0 .5rem;max-width:100%;
+  letter-spacing:.02em;
 }
 
-/* ✅ FIX: 1.1rem (was .88rem) */
 .pw-hero-q{
   font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
   font-size:clamp(1.1rem,2.8vw,1.3rem);
   color:#ffd6e7;animation:pFadeUp .9s .8s ease forwards;opacity:0;
   max-width:480px;line-height:1.9;padding:0 1.2rem;margin-top:.5rem;
 }
-
 .pw-scroll-cue{margin-top:2rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:pFadeUp .9s 1.3s ease forwards;opacity:0;}
-/* ✅ FIX: .95rem (was .72rem — way too small) */
 .pw-scroll-cue span{color:#f9a8d4;font-size:clamp(.95rem,2.4vw,1rem);letter-spacing:.06em;}
 .pw-scroll-line{width:1px;height:36px;background:linear-gradient(180deg,rgba(232,49,90,.8),transparent);animation:pScrollLine 1.8s ease-in-out infinite;will-change:transform,opacity;}
 
@@ -1029,7 +1030,6 @@ body{
 .pw-sw{max-width:900px;margin:0 auto;padding:clamp(2.5rem,6.5vw,5rem) 1rem;}
 @media(min-width:640px){.pw-sw{padding:clamp(3rem,7.5vw,6rem) 1.5rem;}}
 
-/* ✅ FIX: 1.1rem (was .88rem) */
 .pw-eye{
   font-family:'Great Vibes',cursive;
   font-size:clamp(1.1rem,2.8vw,1.25rem);
@@ -1044,7 +1044,6 @@ body{
 }
 
 /* ── TYPEWRITER ──────────────────────────────────────────────────────────────── */
-/* ✅ FIX: 1.15rem (was .96rem) */
 .pw-type{
   font-family:'Cormorant Garamond',serif;font-style:italic;
   font-size:clamp(1.15rem,2.8vw,1.35rem);
@@ -1071,7 +1070,6 @@ body{
   .pw-why-item:nth-child(even):hover{transform:translateX(-7px);}
 }
 .pw-why-ico{font-size:clamp(1.7rem,4.2vw,2.5rem);flex-shrink:0;}
-/* ✅ FIX: 1.05rem (was .88rem) */
 .pw-why-txt{
   font-family:'Cormorant Garamond',serif;font-style:italic;
   font-size:clamp(1.05rem,2.4vw,1.08rem);
@@ -1098,7 +1096,6 @@ body{
   border-radius:inherit;
 }
 .pw-letter::before{content:'❝';position:absolute;top:-.5rem;left:1rem;font-size:6.5rem;color:rgba(232,49,90,.07);font-family:'Cormorant Garamond',serif;line-height:1;pointer-events:none;user-select:none;}
-/* ✅ FIX: 1.15rem (was .96rem) */
 .pw-letter-p{
   font-family:'Cormorant Garamond',serif;font-style:italic;
   font-size:clamp(1.15rem,2.4vw,1.18rem);
@@ -1116,11 +1113,9 @@ body{
   color:#fff;cursor:pointer;animation:pShimmer 3.5s linear infinite;
   box-shadow:0 0 48px rgba(232,49,90,.45);
   transition:transform .3s cubic-bezier(.34,1.56,.64,1);
-  min-height:52px;touch-action:manipulation;
-  will-change:transform;
+  min-height:52px;touch-action:manipulation;will-change:transform;
 }
 .pw-yes-btn:hover{transform:scale(1.08) rotate(-1.5deg);box-shadow:0 0 72px rgba(232,49,90,.65);}
-/* ✅ FIX: 1.05rem (was .9rem) */
 .pw-maybe-btn{
   font-family:'Quicksand',sans-serif;font-size:1.05rem;
   padding:.7rem 2rem;border:1px solid rgba(249,168,212,.3);border-radius:50px;
@@ -1129,7 +1124,6 @@ body{
   min-height:44px;touch-action:manipulation;
   position:relative;will-change:transform;
 }
-/* ✅ FIX: 1.2rem (was 1rem) */
 .pw-note-btn{
   font-family:'Great Vibes',cursive;font-size:clamp(1.2rem,3.2vw,1.5rem);
   padding:.8rem 2.4rem;border:none;border-radius:50px;
@@ -1138,7 +1132,6 @@ body{
   transition:transform .3s,box-shadow .3s;min-height:48px;touch-action:manipulation;
 }
 .pw-note-btn:hover{transform:scale(1.06);box-shadow:0 0 52px rgba(232,49,90,.55);}
-/* ✅ FIX: 1.15rem (was .96rem) */
 .pw-note-msg{
   margin:1.4rem auto 0;max-width:500px;
   font-family:'Cormorant Garamond',serif;font-style:italic;
@@ -1162,17 +1155,28 @@ body{
 .pw-f-rings span{position:absolute;top:50%;left:50%;border-radius:50%;transform:translate(-50%,-50%);animation:pRingPulse 5s ease-in-out infinite;will-change:transform,opacity;}
 .pw-f-rings span:nth-child(1){width:min(260px,76vw);height:min(260px,76vw);border:1px solid rgba(232,49,90,.09)}
 .pw-f-rings span:nth-child(2){width:min(480px,88vw);height:min(480px,88vw);border:1px solid rgba(249,168,212,.065);animation-delay:1s}
+
+/* ── FINAL NAME — Playfair Display, NOT italic ── */
 .pw-f-ttl{
-  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
-  font-size:clamp(1.9rem,8.5vw,5.2rem);line-height:1.1;
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:normal;
+  font-weight:700;
+  font-size:clamp(2rem,8.5vw,5.2rem);
+  line-height:1.2;
   background:linear-gradient(135deg,#fff,#fbbf24 45%,#e8315a 75%,#fff);background-size:200% auto;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:pShimmer 5s linear infinite;word-break:break-word;padding:0 1rem;
+  animation:pShimmer 5s linear infinite;
+  word-break:break-word;padding:0 1rem;
   filter:drop-shadow(0 0 36px rgba(232,49,90,.4));
+  letter-spacing:.02em;
 }
-.pw-f-sub{font-family:'Great Vibes',cursive;font-size:clamp(1.3rem,4.8vw,2.4rem);color:#e8315a;margin:.9rem 0 1.5rem;filter:drop-shadow(0 0 13px rgba(232,49,90,.45));}
+
+.pw-f-sub{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(1.3rem,4.8vw,2.4rem);
+  color:#e8315a;margin:.9rem 0 1.5rem;filter:drop-shadow(0 0 13px rgba(232,49,90,.45));
+}
 .pw-f-hearts{font-size:clamp(1.7rem,5.2vw,2.6rem);animation:pHeartBeat 1.8s ease-in-out infinite;will-change:transform;}
-/* ✅ FIX: 1.08rem (was .88rem) */
 .pw-f-quote{
   margin-top:1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;
   font-size:clamp(1.08rem,2.4vw,1.12rem);
